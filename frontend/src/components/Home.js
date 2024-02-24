@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
 import logo from '../logo.svg';
+import SingleProduct from './SingleProduct';
+import AllProducts from './AllProducts';
 
 export default function Home(){
 
@@ -7,42 +10,30 @@ export default function Home(){
         <main className='mt-4'>
         <div className='container'>
           {/* Latest Product*/}
-          <h3 className='mb-4'>Latest Books<a href="#" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></a></h3>
+          <h3 className='mb-4'>Latest Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
           <div className='row'>
-            {/*Product Box*/}
             <div className='col-12 col-md-3 mb-4'>
-              <div className="card">
-                <img src={logo} className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <h4 className="card-title text-danger">Product title</h4>
-                  <h5 className="card-title">Price:<span className='text-muted'>Rs.500</span></h5>
-                </div>
-                <div className="card-footer"> 
-                  <button title="Add to Cart" className='btn btn-success btn-sm'><i className='fa-solid fa-cart-plus'></i></button>
-                  <button title="Add to Compare" className='btn btn-danger btn-sm ms-1'><i className="fa-solid fa-scale-unbalanced"></i></button>
-                </div>
-                  
-                
-              </div>
-            </div>
+              {/*Product Box*/}
+            <SingleProduct title="Asmita Publication"/>
             {/* End Product Box*/}
-            {/*Product Box*/}
+            </div>
             <div className='col-12 col-md-3 mb-4'>
-              <div className="card">
-                <img src={logo} className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <h4 className="card-title text-danger">Product title</h4>
-                  <h5 className="card-title">Price:<span className='text-muted'>Rs.500</span></h5>
-                </div>
-                <div className="card-footer"> 
-                  <button title="Add to Cart" className='btn btn-success btn-sm'><i className='fa-solid fa-cart-plus'></i></button>
-                  <button title="Add to Compare" className='btn btn-danger btn-sm ms-1'><i className="fa-solid fa-scale-unbalanced"></i></button>
-                </div>
-                  
-                
-              </div>
-            </div>
+              {/*Product Box*/}
+            <SingleProduct title="Asmita Publication"/>
             {/* End Product Box*/}
+            </div>
+            <div className='col-12 col-md-3 mb-4'>
+              {/*Product Box*/}
+            <SingleProduct title="Asmita Publication"/>
+            {/* End Product Box*/}
+            </div>
+            <div className='col-12 col-md-3 mb-4'>
+              {/*Product Box*/}
+            <SingleProduct title="Asmita Publication"/>
+            {/* End Product Box*/}
+            </div>
+            
+           
           </div>
            {/*End Latest Product*/}
            {/* Popular Category*/}

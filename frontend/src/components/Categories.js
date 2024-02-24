@@ -14,7 +14,7 @@ export default function Categories(){
               <div className="card">
                 <img src={logo} className="card-img-top" alt="..."/>
                 <div className="card-body">
-                  <h4 className="card-title text-danger"><Link>Category title</Link></h4>
+                  <h4 className="card-title text-danger"><Link to = "/categories/reference/1">Category title</Link></h4>
                 </div>
                 <div className='card-footer'>
                   Book Purchased: 2233
@@ -40,6 +40,23 @@ export default function Categories(){
 
                   {/*End of Categories*/}
         </section>
+        <nav className="container" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        </li>
+                    </ul>
+                </nav>
         </>
       
     )
