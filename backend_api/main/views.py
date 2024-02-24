@@ -1,10 +1,10 @@
 from rest_framework import generics, permissions, pagination, viewsets
-from .models import Vendor, Product, Customer,Order, OrderItem, CustomerAddress, ProductRating
+from .models import Vendor, Product, Customer,Order, OrderItem, CustomerAddress, ProductRating, ProductCategory
 from .serializers import VendorSerializer, VendorDetailSerializer
 from .serializers import ProductListSerializer, ProductDetailSerializer, ProductRatingSerializer
 from .serializers import CustomerDetailSerializer, CustomerSerializer, CustomerAddressSerializer
 from .serializers import OrderSerializer, OrderDetailSerializer
-
+from .serializers import CategorySerializer, CategoryDetailSerializer
 
 ###VENDOR
 class VendorList(generics.ListCreateAPIView):
@@ -16,6 +16,16 @@ class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorDetailSerializer
    
+###Category
+class CategoryList(generics.ListCreateAPIView):
+    queryset = ProductCategory.objects.all()
+    serializer_class = CategorySerializer
+    
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductCategory.objects.all()
+    serializer_class = CategoryDetailSerializer
+  
 ###PRODUCT
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()

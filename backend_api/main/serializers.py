@@ -21,6 +21,27 @@ class VendorDetailSerializer(serializers.ModelSerializer):
         super(VendorDetailSerializer, self).__init__(*args, **kwargs)
         #self.Meta.depth = 1
 
+
+###########CATEGORY#######
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProductCategory
+        fields = ['id', 'title', 'detail']
+
+    def __init__(self, *args, **kwargs):
+        super(CategorySerializer, self).__init__(*args, **kwargs)
+        #self.Meta.depth = 1
+
+        
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProductCategory
+        fields = ['id','title', 'detail']
+
+    def __init__(self, *args, **kwargs):
+        super(CategoryDetailSerializer, self).__init__(*args, **kwargs)
+        #self.Meta.depth = 1
+
 ###########PRODUCT#######
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
