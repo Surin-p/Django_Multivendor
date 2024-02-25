@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 import Sidebar from './Sidebar';
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
-export default function Orders() {
+export default function Compare() {
     return (
         <section>
 
@@ -24,7 +24,7 @@ export default function Orders() {
                                             <th>S.No</th>
                                             <th>Product</th>
                                             <th>Price</th>
-                                            <th>Status</th>
+                                            
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -36,8 +36,8 @@ export default function Orders() {
                                             </td>
 
                                             <td>Rs. 500</td>
-                                            <td><span className='text-success'><i className="fa-solid fa-circle-check"></i>Completed</span></td>
-                                            <td><button className='btn btn-danger btn-sm'>Purchase/Buy</button></td>
+                                            
+                                            <td><button className='btn btn-danger btn-sm'>Remove</button></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -45,8 +45,8 @@ export default function Orders() {
                                                 <p><Link>HSCB SEE Collection</Link></p>
                                             </td>
                                             <td>Rs. 550</td>
-                                            <td><span className='text-danger'><i className="fa-solid fa-circle-xmark"></i>Cancelled</span></td>
-                                            <td><button className='btn btn-danger btn-sm'>Purchase/Buy</button></td>
+                                            
+                                            <td><button className='btn btn-danger btn-sm'>Remove</button></td>
                                         </tr>
                                     </tbody>
 
