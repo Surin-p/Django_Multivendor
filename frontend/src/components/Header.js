@@ -19,15 +19,21 @@ function Header() {
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" href="#" to="/categories">Categories</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" href="#" to="/checkout">My Cart(2)</Link>
+            </li>
             <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" to="/categories">
-                Category
+              <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" to="/">
+                My Profile
               </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="#">Action</a></li>
-                <li><a className="dropdown-item" href="#">Another action</a></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
+                <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/">Logout</Link></li>
               </ul>
             </li>
 
