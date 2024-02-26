@@ -16,7 +16,7 @@ import Checkout from "./components/Checkout";
 import OrderSuccess from "./components/OrderSuccess";
 import OrderFailure from "./components/OrderFailure";
 
-//For Customer
+//For Customer Pannel
 import Register from "./components/Customer/Register";
 import Login from "./components/Customer/Login";
 import Dashboard from "./components/Customer/Dashboard";
@@ -25,6 +25,14 @@ import Compare from "./components/Customer/Compare";
 import Profile from "./components/Customer/Profile";
 import ChangePassword from "./components/Customer/ChangePassword";
 import Addresses from "./components/Customer/Addresses";
+import AddAddress from "./components/Customer/AddAddress";
+
+//For School Pannel
+import SchoolRegister from "./components/School/Register";
+import SchoolLogin from "./components/School/Login";
+import SchoolDashboard from "./components/School/Dashboard";
+import SchoolProducts from "./components/School/Products";
+import AddProduct from "./components/School/AddProduct";
 
 function App() {
   return (
@@ -40,7 +48,7 @@ function App() {
           <Route path ="/checkout" element={<Checkout/>}/>
           <Route path ="/orders/success" element={<OrderSuccess/>}/>
           <Route path ="/orders/failure" element={<OrderFailure/>}/>
-
+          {/*Customer Routes*/}
           <Route path ="/customer/login" element={<Login/>}/>
           <Route path ="/customer/register" element={<Register/>}/>
           <Route path ="/customer/dashboard" element={<Dashboard/>}/>
@@ -49,6 +57,14 @@ function App() {
           <Route path ="/customer/profile" element={<Profile/>}/>
           <Route path ="/change/password" element={<ChangePassword/>}/>
           <Route path ="/customer/addresses" element={<Addresses/>}/>
+          <Route path ="/customer/add-address" element={<AddAddress/>}/>
+
+          {/*Seller Routes*/}
+          <Route path ="/seller/dashboard" element={<SchoolDashboard/>}/>
+          <Route path ="/seller/login" element={<SchoolLogin/>}/>
+          <Route path ="/seller/register" element={<SchoolRegister/>}/>
+          <Route path ="/seller/products" element={<SchoolProducts/>}/>
+          <Route path ="/seller/add-product" element={<AddProduct/>}/>
       </Routes>
 
       <Footer />

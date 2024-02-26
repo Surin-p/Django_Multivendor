@@ -11,17 +11,25 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="#" to="/">Home</Link>
+              <Link className="nav-link" aria-current="page" href="#" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="#" to="/products">Books</Link>
+              <Link className="nav-link" aria-current="page" href="#" to="/products">Books</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="#" to="/categories">Categories</Link>
+              <Link className="nav-link" aria-current="page" href="#" to="/categories">Categories</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="#" to="/checkout">My Cart(2)</Link>
+              <Link className="nav-link" aria-current="page" href="#" to="/checkout">My Cart(2)</Link>
             </li>
+            
+            <li className="nav-item">
+              <Link className="nav-link" aria-current="page" href="#" to="/customer/compare">Compare(2)</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" aria-current="page" href="#" to="/checkout">New Orders(2)</Link>
+            </li>
+            
             <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" to="/">
                 My Profile
@@ -34,6 +42,20 @@ function Header() {
                 <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
                 <li><hr className="dropdown-divider"/></li>
                 <li><Link className="dropdown-item" to="/">Logout</Link></li>
+              </ul>
+            </li>
+            <li className="nav-item dropdown">
+              <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" to="/">
+                School Panel
+              </Link>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><Link className="dropdown-item" to="/seller/register">Register</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/seller/login">Login</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/seller/login">Logout</Link></li>
               </ul>
             </li>
 
