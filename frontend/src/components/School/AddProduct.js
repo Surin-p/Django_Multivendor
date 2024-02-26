@@ -20,10 +20,13 @@ export default function AddProduct(props) {
                             <div className='card-body'>
                                 <form>
                                     <div className="mb-3">
-                                        <label for="Category" className="form-label">Category</label>
+                                        <label for="Category" className="form-label">Class Category</label>
                                         <select className='form-control'>
-                                            <option></option>
-                                            <option></option>
+                                            <option>Nursary</option>
+                                            <option>L.K.G</option>
+                                            <option>U.K.G</option>
+                                            <option>Primary</option>
+                                            <option>Secondary</option>
                                         </select>
                                         
                                     </div>
@@ -39,18 +42,10 @@ export default function AddProduct(props) {
                                     </div>
                                     <div className="mb-3">
                                         <label for="Description" className="form-label">Description</label>
-                                        <textarea className="form-control" id="Description"></textarea>
+                                        <textarea className="form-control" rows="8" id="Description"></textarea>
                                         
                                     </div>
-                                    <div className="mb-3">
-                                        <label for="username" className="form-label">Username</label>
-                                        <input type="text" className="form-control" id="username"/>
-                                        
-                                    </div>
-                                    <div className="mb-3">
-                                        <label for="password" className="form-label">Password</label>
-                                        <input type="password" className="form-control" id="Password" />
-                                    </div>
+                                    
                                     <div className="mb-3">
                                         <label for="profileImage" className="form-label">Product Image</label>
                                         <input type="file" className="form-control" id="profileImage" accept="image/*" />

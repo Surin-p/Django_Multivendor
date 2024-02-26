@@ -2,10 +2,10 @@
 import { Link } from 'react-router-dom';
 //Assets
 
-import Sidebar from './Sidebar';
+import SchoolSidebar from './Sidebar';
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
-export default function Profile(props) {
+export default function SchoolProfile(props) {
     return (
         <section>
 
@@ -13,7 +13,7 @@ export default function Profile(props) {
 
                 <div className='row'>
                     <div className='col-md-3 col-12 mt-5'>
-                        <Sidebar/>
+                        <SchoolSidebar/>
                     </div>
                     <div className='col-md-9 col-12'>
                         <h3 className='mb-4'>Update Profile</h3>
@@ -21,12 +21,17 @@ export default function Profile(props) {
                             <div className='card-body'>
                                 <form>
                                     <div className="mb-3">
-                                        <label for="firstname" className="form-label">First Name</label>
-                                        <input type="text" className="form-control" id="firstName"/>
+                                        <label for="schoolname" className="form-label">School Name</label>
+                                        <input type="text" className="form-control" id="schoolname"/>
                                         
                                     </div>
                                     <div className="mb-3">
-                                        <label for="lastname" className="form-label">Last Name</label>
+                                        <label for="Address" className="form-label">Address</label>
+                                        <input type="text" className="form-control" id="Address"/>
+                                        
+                                    </div>
+                                    <div className="mb-3">
+                                        <label for="lastname" className="form-label">Phone Number</label>
                                         <input type="text" className="form-control" id="lastName"/>
                                         
                                     </div>

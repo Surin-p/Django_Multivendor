@@ -33,6 +33,11 @@ import SchoolLogin from "./components/School/Login";
 import SchoolDashboard from "./components/School/Dashboard";
 import SchoolProducts from "./components/School/Products";
 import AddProduct from "./components/School/AddProduct";
+import SchoolOrders from "./components/School/SchoolOrder";
+import Customer from "./components/School/Customer";
+import Report from "./components/School/Report";
+import SchoolChangePassowrd from "./components/School/SchoolChangePassword";
+import SchoolProfile from "./components/School/SchoolProfile";
 
 function App() {
   return (
@@ -59,12 +64,17 @@ function App() {
           <Route path ="/customer/addresses" element={<Addresses/>}/>
           <Route path ="/customer/add-address" element={<AddAddress/>}/>
 
-          {/*Seller Routes*/}
+          {/*School Routes*/}
           <Route path ="/seller/dashboard" element={<SchoolDashboard/>}/>
           <Route path ="/seller/login" element={<SchoolLogin/>}/>
           <Route path ="/seller/register" element={<SchoolRegister/>}/>
           <Route path ="/seller/products" element={<SchoolProducts/>}/>
           <Route path ="/seller/add-product" element={<AddProduct/>}/>
+          <Route path ="/seller/orders" element={<SchoolOrders/>}/>
+          <Route path ="/seller/customer" element={<Customer/>}/>
+          <Route path ="/seller/report" element={<Report/>}/>
+          <Route path ="/seller/change/password" element={<ChangePassword/>}/>
+          <Route path ="/seller/profile" element={<Report/>}/>
       </Routes>
 
       <Footer />

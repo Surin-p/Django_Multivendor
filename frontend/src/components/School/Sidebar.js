@@ -11,6 +11,8 @@ export default function SchoolSidebar(){
         <Link to="/seller/orders" className="list-group-item list-group-item-action">Orders</Link>
         <Link to="/seller/customer" className="list-group-item list-group-item-action">Customers</Link>
         <Link to="/seller/report" className="list-group-item list-group-item-action">Reports</Link>
+        <Link to="/seller/change/password" className="list-group-item list-group-item-action">Change Password</Link>
+        <Link to="/seller/profile" className="list-group-item list-group-item-action">Profile</Link>
         <Link to="/" className="list-group-item list-group-item-action text-danger">Logout</Link>
     </div>
     )
