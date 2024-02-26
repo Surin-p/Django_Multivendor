@@ -1,11 +1,26 @@
 import logo from '../logo.svg';
 import SingleProduct from './SingleProduct';
+import { useState, useEffect } from 'react';
+
 export default function AllProducts() {
-  const products=[
-    {'title': 'Asmita Publication Collection', 'price':500},
-    {'title': 'HSEB Publication Collection', 'price':550},
-    {'title': 'Ekta Publication Collection', 'price':500},
-  ]
+  // const products=[
+  //   {'title': 'Asmita Publication Collection', 'price':500},
+  //   {'title': 'HSEB Publication Collection', 'price':550},
+  //   {'title': 'Ekta Publication Collection', 'price':500},
+  // ]
+  const [Products , setProducts] = useState([])
+
+  useEffect(()=>{
+    fetchData("http://127.0.0.1:8000/api/products/")
+  });
+  function fetchData(baseUrl){
+    fetch(baseUrl)
+  .then((response) => response.json())
+  .then((data) => setProducts(data.results));
+ 
+  }
+  
+  
   return (
     <main className='mt-4'>
       <section className='container mt-4'>
@@ -15,7 +30,7 @@ export default function AllProducts() {
           <div className='row'>
             <div className='col-12 col-md-3 mb-4'>
               {
-                products.map((product)=> <SingleProduct product={product}/>)
+                Products.map((product)=> <SingleProduct product={product}/>)
               }
             </div>
 
