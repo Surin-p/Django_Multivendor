@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 import SingleProduct from './SingleProduct';
 import { useState, useEffect } from 'react';
@@ -8,18 +9,31 @@ export default function AllProducts() {
   //   {'title': 'HSEB Publication Collection', 'price':550},
   //   {'title': 'Ekta Publication Collection', 'price':500},
   // ]
-  const [Products , setProducts] = useState([])
-
+    const baseurl = "http://127.0.0.1:8000/api";
+    const [Products , setProducts] = useState([]);
+    const [totalResult, setTotalResult] = useState([]);
+    const [baseUrl, setBaseUrl] = useState(baseurl+"/products");
   useEffect(()=>{
-    fetchData("http://127.0.0.1:8000/api/products/")
+    fetchData()
   });
-  function fetchData(baseUrl){
+  function fetchData(){
     fetch(baseUrl)
   .then((response) => response.json())
-  .then((data) => setProducts(data.results));
+  .then((data) => {
+    setProducts(data.results);
+    setTotalResult(data.count);
+    });
  
-  }
+  } 
   
+  function changeUrl(baseUrl){
+    setBaseUrl(baseUrl);
+  }
+  //for pagination using total Result
+  var links = []
+  for(let i =1; i<=totalResult; i++){
+    links.push(<li class='page-item'><Link onClick={()=> changeUrl(baseurl+`products/?page=${i}`)} to={baseurl+`products/?page=${i}`} class='page-link'>{i}</Link></li>)
+  }
   
   return (
     <main className='mt-4'>
@@ -40,19 +54,7 @@ export default function AllProducts() {
 
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
+            {links}
           </ul>
         </nav>
       </section>
