@@ -58,15 +58,15 @@ export default function SchoolOrders() {
                                             <td>Rs. 550</td>
                                             <td><span className='text-danger'><i className="fa-solid fa-circle-xmark"></i>Cancelled</span></td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div className="dropdown">
+                                                    <button className="btn btn-danger btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         Change Status
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#">Approve</a>
-                                                        <a class="dropdown-item" href="#">Sent</a>
-                                                        <a class="dropdown-item" href="#">Completed</a>
-                                                        <a class="dropdown-item" href="#">Cancelled</a>
+                                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a className="dropdown-item" href="#">Approve</a>
+                                                        <a className="dropdown-item" href="#">Sent</a>
+                                                        <a className="dropdown-item" href="#">Completed</a>
+                                                        <a className="dropdown-item" href="#">Cancelled</a>
                                                     </div>
                                                 </div>
                                             </td>

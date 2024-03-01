@@ -1,36 +1,27 @@
 import { Link } from "react-router-dom";
 import logo from '../logo.svg';
-import SingleProduct from './SingleProduct';
+import SingleProduct from './Customer/SingleProduct';
 import AllProducts from './AllProducts';
 
 export default function Home() {
-
+  const products = [
+    {
+      'title': 'Django',
+      'price':'500'
+    },
+    {
+      'title': 'python',
+      'price':'500'
+    },
+  ]
   return (
-
     <main className='mt-4'>
       <div className='container'>
         {/* Latest Product*/}
         <h3 className='mb-4'>Latest Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
         <div className='row'>
           <div className='col-12 col-md-3 mb-4'>
-            {/*Product Box*/}
-            <SingleProduct title="Asmita Publication" />
-            {/* End Product Box*/}
-          </div>
-          <div className='col-12 col-md-3 mb-4'>
-            {/*Product Box*/}
-            <SingleProduct title="Asmita Publication" />
-            {/* End Product Box*/}
-          </div>
-          <div className='col-12 col-md-3 mb-4'>
-            {/*Product Box*/}
-            <SingleProduct title="Asmita Publication" />
-            {/* End Product Box*/}
-          </div>
-          <div className='col-12 col-md-3 mb-4'>
-            {/*Product Box*/}
-            <SingleProduct title="Asmita Publication" />
-            {/* End Product Box*/}
+            {products.map((product) => (<SingleProduct product={product } />))}
           </div>
 
 

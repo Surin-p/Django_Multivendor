@@ -1,6 +1,6 @@
 //Packages
 import { Link } from 'react-router-dom';
-import SingleProduct from './SingleProduct';
+import SingleProduct from '../components/Customer/SingleProduct';
 import logo from '../logo.svg';
 export default function ProductDetail() {
     return (
