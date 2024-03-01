@@ -1,47 +1,72 @@
-import logo from '../logo.svg';
+//useParams hooks this is new hooks introduced in react router dom
+//helps to get url parameters, dynamic 
+// let is used when we need to create a variable that
+//  should be only accessed inside the block.const is
+//  used when we need to create a variable that should
+//  only be accessed inside the block, and the value of
+//   the variable remains unchanged.
+
 import SingleProduct from './Customer/SingleProduct';
-export default function CategoryProducts() {
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+export default function CategoryProducts(props) {
+    const baseUrl = 'http://127.0.0.1:8000/api';
+    const [products, setProducts] = useState([]);
+    //for pagination
+    const [totalResults, setTotalResults] = useState(0);
+    //for searching url parameters
+    const { category_slug, category_id } = useParams();
+
+    console.log(category_id);
+
+    useEffect(() => {
+      fetchData(baseUrl+'/products/?categories='+category_id);
+    }, []);
+  
+    function fetchData(baseUrl) {
+      fetch(baseUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data.results)
+          setTotalResults(data.count);
+        });
+    }
+    
+    function changeUrl(baseurl) {
+      fetchData(baseurl);
+    }
+    var links = [];
+    //let is a keyword to define block level variable
+    for (let i = 1; i <= totalResults; i++){
+        links.push(<li key={i} class='page-item'>
+            <Link onClick={() => changeUrl(baseUrl + `/products/?categories=${category_id}page=${i}`)}
+                to={`/categories/${category_slug}/${category_id}?page=${i}`} class='page-link'>
+                {i}</Link></li>
+        )
+    }
     return (
-        <main className='mt-4'>
             <section className='container mt-4'>
                 {/* Latest Product*/}
                 <h3 className='mb-4'><span className='text-danger'>Reference</span>Books</h3>
                 <div className='row mb-4'>
                     <div className='col-12 col-md-3 mb-4'>
                         {/*Product Box*/}
-                        <SingleProduct title="Asmita Publication" />
+                        {products.map((product) => (
+                            <SingleProduct product={product} />
+                        ))}
                         {/* End Product Box*/}
                     </div>
-                    <div className='col-12 col-md-3 mb-4'>
-                        {/*Product Box*/}
-                        <SingleProduct title="Asmita Publication" />
-                        {/* End Product Box*/}
-                    </div>
-                    <div className='col-12 col-md-3 mb-4'>
-                        {/*Product Box*/}
-                        <SingleProduct title="Asmita Publication" />
-                        {/* End Product Box*/}
-                    </div>
+                    
                 </div>
 
-                <nav className="container" aria-label="Page navigation example">
+                <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                        {/* Pagination links */}
+                        {links}
                     </ul>
                 </nav>
             </section>
-        </main>
     )
 }

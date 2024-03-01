@@ -38,19 +38,16 @@ export default function AllProducts() {
   }
 
   return (
-    <main className='mt-4'>
+    
       <section className='container mt-4'>
-        <h3 className='mb-4'>Books List</h3>
-        <div className='row mb-4'>
-          <div className='row'>
-            <div className='col-12 col-md-3 mb-4'>
+        <h3 className='mb-4'>Books List</h3> 
+        <div className='row'>
+        <div className="col-12 col-md-3 col-lg-3 mb-4">
               {products.map((product) => (
                 <SingleProduct product={product} />
               ))}
             </div>
           </div>
-        </div>
-
         <nav aria-label="Page navigation example">
           <ul className="pagination">
             {/* Pagination links */}
@@ -58,6 +55,6 @@ export default function AllProducts() {
           </ul>
         </nav>
       </section>
-    </main>
+  
   );
 }

@@ -5,7 +5,6 @@ from .serializers import ProductListSerializer, ProductDetailSerializer, Product
 from .serializers import CustomerDetailSerializer, CustomerSerializer, CustomerAddressSerializer
 from .serializers import OrderSerializer, OrderDetailSerializer
 from .serializers import CategorySerializer, CategoryDetailSerializer
-
 ###VENDOR
 class VendorList(generics.ListCreateAPIView):
     queryset = Vendor.objects.all()
@@ -31,6 +30,14 @@ class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductListSerializer
     pagination_class  = pagination.PageNumberPagination
+
+    #sort out result setParams
+    def get_queryset(self):
+        qs= super().get_queryset()
+        categories=self.request.GET['categories']
+        categories=ProductCategory.objects.get(id=categories)
+        qs = qs.filter(categories=categories)
+        return qs
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()

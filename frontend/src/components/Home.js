@@ -6,6 +6,7 @@ import AllProducts from './AllProducts';
 export default function Home() {
   const products = [
     {
+    
       'title': 'Django',
       'price':'500'
     },
@@ -19,12 +20,10 @@ export default function Home() {
       <div className='container'>
         {/* Latest Product*/}
         <h3 className='mb-4'>Latest Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
-        <div className='row'>
-          <div className='col-12 col-md-3 mb-4'>
+        <div className="row">
+          <div className="col-12 col-md-3 col-lg-3 mb-4">
             {products.map((product) => (<SingleProduct product={product } />))}
-          </div>
-
-
+        </div>
         </div>
         {/*End Latest Product*/}
         {/* Popular Category*/}

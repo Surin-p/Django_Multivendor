@@ -4,22 +4,32 @@ import logo from '../../logo.svg';
 function SingleProduct(props) {
   // Check if props.product is defined before accessing its properties
   //if you single product is in same folder the the file where you are fetching data use props.product?.title
-  
-  const title = props.product.title;
-  const price = props.product.price;
+  // The code you've provided is using the optional
+  //  chaining operator?., not the ternary operator ? :.
 
+  // The optional chaining operator?.is a new
+  //   feature introduced in ECMAScript 2020(ES11)
+  //    and is used to access properties of an object
+  //     that may be null or undefined without causing 
+  //     an error.It's a shorthand way of writing 
+  //     a series of nested if statements to check
+  // for null or undefined before accessing a property.
+  
+  const title = props.product?.title;
+  const price = props.product?.price;
+  const id = props.product?.id;
   return (
-    <section>
-      <div className=''>
-        <div className=''>
-          <div className="card">
-            <Link to={`/product/${title}/${price}`}>
-              <img src={logo} className="card-img-top" alt="..." />
+  <section className=''>
+      <div className='mb-4'>
+        <div key={id} className=''>
+          <div className="card ">
+            <Link to={`/product/${title}/${id}`}>
+              <img src={logo} className="card-img-top" alt="{title}" />
             </Link>
 
             <div className="card-body">
               <h4 className="card-title text-danger">
-                <Link to={`/product/${title}/${price}`}>
+                <Link to={`/product/${title}/${id}`}>
                   {title}
                 </Link>
               </h4>
@@ -32,7 +42,7 @@ function SingleProduct(props) {
           </div>
         </div>
       </div>
-    </section>
+      </section>
   );
 }
 
