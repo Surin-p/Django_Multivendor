@@ -55,9 +55,10 @@ class ProductListSerializer(serializers.ModelSerializer):
  
 class ProductDetailSerializer(serializers.ModelSerializer):
     product_ratings= serializers.StringRelatedField(many=True, read_only=True)
+    product_imgs=serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = models.Product
-        fields = ['id', 'title', 'category', 'detail', 'price', 'vendor', 'product_ratings']
+        fields = ['id', 'title', 'category', 'detail', 'price', 'vendor', 'product_ratings', 'product_imgs']
 
     def __init__(self, *args, **kwargs):
         super(ProductDetailSerializer, self).__init__(*args, **kwargs)

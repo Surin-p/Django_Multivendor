@@ -18,8 +18,8 @@ export default function AllProducts() {
     fetchData(baseUrl+'/products');
   }, []);
 
-  function fetchData(baseUrl) {
-    fetch(baseUrl)
+  function fetchData(baseurl) {
+    fetch(baseurl)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.results)

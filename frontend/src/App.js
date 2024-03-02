@@ -48,8 +48,8 @@ function App() {
           <Route index element={<Home />} />  
           <Route path="/products" element={<AllProducts />} />
           <Route path="/categories" element={<Categories />} />
-          <Route path = "/categories/:category_slug/:category_id" element={<CategoryProducts/>}/>
-          <Route path = "/products/:product_slug/:product_id" element={<ProductDetail/>}/>
+          <Route path = "/category/:category_slug/:category_id" element={<CategoryProducts/>}/>
+          <Route path = "/product/:product_slug/:product_id" element={<ProductDetail/>}/>
           <Route path ="/checkout" element={<Checkout/>}/>
           <Route path ="/orders/success" element={<OrderSuccess/>}/>
           <Route path ="/orders/failure" element={<OrderFailure/>}/>

@@ -8,7 +8,7 @@
 
 import SingleProduct from './Customer/SingleProduct';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 export default function CategoryProducts(props) {
@@ -22,7 +22,7 @@ export default function CategoryProducts(props) {
     console.log(category_id);
 
     useEffect(() => {
-      fetchData(baseUrl+'/products/?categories='+category_id);
+      fetchData(baseUrl+'/products/?category='+category_id);
     }, []);
   
     function fetchData(baseUrl) {
@@ -41,8 +41,8 @@ export default function CategoryProducts(props) {
     //let is a keyword to define block level variable
     for (let i = 1; i <= totalResults; i++){
         links.push(<li key={i} class='page-item'>
-            <Link onClick={() => changeUrl(baseUrl + `/products/?categories=${category_id}page=${i}`)}
-                to={`/categories/${category_slug}/${category_id}?page=${i}`} class='page-link'>
+            <Link onClick={() => changeUrl(baseUrl + `/products/?category=${category_id}page=${i}`)}
+                to={`/category/${category_slug}/${category_id}?page=${i}`} class='page-link'>
                 {i}</Link></li>
         )
     }

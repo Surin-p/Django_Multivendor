@@ -31,18 +31,17 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductListSerializer
     pagination_class  = pagination.PageNumberPagination
 
-    #sort out result setParams
-    def get_queryset(self):
-        qs= super().get_queryset()
-        categories=self.request.GET['categories']
-        categories=ProductCategory.objects.get(id=categories)
-        qs = qs.filter(categories=categories)
-        return qs
+    # #sort out result setParams
+    # def get_queryset(self):
+    #     qs= super().get_queryset()
+    #     category=self.request.GET['category']
+    #     category=ProductCategory.objects.get(id=category)
+    #     qs = qs.filter(category=category)
+    #     return qs
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
-
 
 ##CUSTOMER
 class CustomerList(generics.ListCreateAPIView):
