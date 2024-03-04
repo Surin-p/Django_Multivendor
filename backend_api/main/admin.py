@@ -13,3 +13,5 @@ admin.site.register(models.CustomerAddress)
 admin.site.register(models.ProductRating)
 
 admin.site.register(models.ProductImage)
+
+#this add separately

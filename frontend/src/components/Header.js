@@ -41,7 +41,7 @@ function Header() {
                 <li><hr className="dropdown-divider"/></li>
                 <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
                 <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/">Logout</Link></li>
+                <li><Link className="dropdown-item" to="/customer/logout">Logout</Link></li>
               </ul>
             </li>
             <li className="nav-item dropdown">

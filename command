@@ -34,3 +34,9 @@ X-Frame-Options: DENY
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA4NzA2MTgxLCJpYXQiOjE3MDg3MDU4ODEsImp0aSI6ImJkMDBiMzdhMGY3NDQzOWVhZjI1NzMzNDIzNzRjYTU1IiwidXNlcl9pZCI6MX0.NLhYNpFI4-8P0NRizS55rPgwLSEhevC8nsUayLWzz2I",       
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwODc5MjI4MSwiaWF0IjoxNzA4NzA1ODgxLCJqdGkiOiI0NmNiMGJiMTk4MDQ0ZmEwYWQ2ZTM2NmZjNDQ2M2JjNSIsInVzZXJfaWQiOjF9.EK3zGKu6q1MiniYchNnnr5REqpEajqmPwo1m8fQBGaY"      
 }
+
+//while doing the images
+ pip install pillow
+
+ //for slug
+ pip install django-autoslug

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 #Vendor Models
 class Vendor(models.Model):
@@ -23,9 +24,10 @@ class ProductCategory(models.Model):
 
 #Product
 class Product(models.Model):
-    category = models.ForeignKey(ProductCategory, on_delete = models.SET_NULL, null=True, related_name='category_products')
-    vendor = models.ForeignKey(Vendor, on_delete = models.SET_NULL, null=True)
+    category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True, related_name='category_products')
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
+    slug = models.SlugField(default=None)
     detail = models.TextField(null=True)
     price = models.FloatField()
     image = models.ImageField(upload_to='product_imgs/', null=True)
@@ -33,6 +35,7 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+
 #customer model
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)

@@ -5,6 +5,9 @@ from .serializers import ProductListSerializer, ProductDetailSerializer, Product
 from .serializers import CustomerDetailSerializer, CustomerSerializer, CustomerAddressSerializer
 from .serializers import OrderSerializer, OrderDetailSerializer
 from .serializers import CategorySerializer, CategoryDetailSerializer
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.contrib.auth import authenticate;
 ###VENDOR
 class VendorList(generics.ListCreateAPIView):
     queryset = Vendor.objects.all()
@@ -31,13 +34,17 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductListSerializer
     pagination_class  = pagination.PageNumberPagination
 
-    # #sort out result setParams
+    # # Sort out result setParams
     # def get_queryset(self):
-    #     qs= super().get_queryset()
-    #     category=self.request.GET['category']
-    #     category=ProductCategory.objects.get(id=category)
-    #     qs = qs.filter(category=category)
+    #     category = self.request.GET.get('category')
+    #     # other_filter = self.request.GET.get('other_filter')
+    #     qs = super().get_queryset()
+    #     if category:
+    #         qs = qs.filter(category__iexact​=​category)
+    #     # if other_filter:
+    #     #    qs = qs.filter(other_field=other_field)
     #     return qs
+
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
@@ -80,3 +87,28 @@ class ProductRatingViewSet(viewsets.ModelViewSet):
     serializer_class = ProductRatingSerializer
     queryset = ProductRating.objects.all()
  
+
+#creating post request we create csrf token
+@csrf_exempt
+def CustomerLogin(request):
+    #django save password in the hash format so password must be in hash
+    # msg={
+    #     'bool':True,
+    #     'post': request.POST
+    #     }
+    username=request.POST.get('username');
+    password=request.POST.get('password');
+    user=authenticate(username=username, password=password)
+    if user:
+        msg={
+            'bool':True,
+            'user':user.username
+        }
+    else:
+        msg={
+            'bool':False,
+            'msg':'Invalid Username/Password'
+        }
+    return JsonResponse(msg)
+
+
