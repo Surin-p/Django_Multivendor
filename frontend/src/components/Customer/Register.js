@@ -95,7 +95,10 @@ export default function Register(props) {
                                         <input type="password" name="password" className="form-control" value={registerFormData.password} onChange={inputHandler} id="Password" />
                                     </div>
                                     
-                                    <button type="button" disabled="!buttonEnable" onClick={submitHandler} className="btn btn-danger">Submit</button>
+                                    <button type="button" disabled={!buttonEnable} onClick={submitHandler} className="btn btn-danger">Submit</button>
+                                    {formError &&
+                                        <p className='text-danger'>{errorMsg }</p>
+                                    }
                                 </form>
                             </div>
                         </div>
