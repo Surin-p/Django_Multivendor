@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 #Vendor Models
@@ -10,7 +10,7 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.user.username
-    
+
 
 
 #Product Category
@@ -27,19 +27,24 @@ class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True, related_name='category_products')
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
-    slug = models.SlugField(default=None)
+    slug = models.SlugField(max_length = 250, null = True, blank = True, unique=True)
     detail = models.TextField(null=True)
     price = models.FloatField()
     image = models.ImageField(upload_to='product_imgs/', null=True)
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
+    
     
 
 #customer model
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    mobile = models.PositiveBigIntegerField()
+    phone = models.PositiveBigIntegerField(unique=True)
 
     def __str__(self):
         return self.user.username

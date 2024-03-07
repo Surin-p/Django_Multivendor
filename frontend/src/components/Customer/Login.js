@@ -34,7 +34,7 @@ export default function Login(props) {
         //Submit Data
         axios.post(baseUrl + 'customer/login/', formData)
             .then(function (response) {
-                if (response.data.bool == false) {
+                if (response.data.bool === false) {
                     setFormError(true);
                     setErrorMsg(response.data.msg);
                 } else {

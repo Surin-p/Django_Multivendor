@@ -40,3 +40,6 @@ X-Frame-Options: DENY
 
  //for slug
  pip install django-autoslug
+
+for admin panel
+npm install admin-lte --save

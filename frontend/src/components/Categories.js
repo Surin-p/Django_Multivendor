@@ -76,10 +76,10 @@ for (let i = 1; i <= totalLink; i++){
               //Category Box
               <div key={category.id} className='col-12 col-md-3 mb-2'>
                 <div className="card">
-                  <Link to={`/categories/${category.title}/${category.id}`}>
+                  <Link to={`/category/${category.title}/${category.id}`}>
                   <img src={logo} className="card-img-top" alt="{category.title}" /></Link>
                   <div className="card-body">
-                    <h4 className="card-title text-danger"><Link to={`/categories/${category.title}/${category.id}`}>{category.title}</Link></h4>
+                    <h4 className="card-title text-danger"><Link to={`/category/${category.title}/${category.id}`}>{category.title}</Link></h4>
                   </div>
                   <div className='card-footer'>
                     Book Purchased: 2233

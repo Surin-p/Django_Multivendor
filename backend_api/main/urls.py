@@ -19,7 +19,7 @@ urlpatterns=[
     path('customers/', views.CustomerList.as_view()),
     path('customer/<int:pk>/', views.CustomerDetail.as_view()),
     path('customer/login/', views.CustomerLogin, name='customer_login'),
-
+    path('customer/register/', views.CustomerRegister, name='customer_register'),
     #Orders
     path('orders/', views.OrderList.as_view()),
     path('order/<int:pk>', views.OrderDetail.as_view()),

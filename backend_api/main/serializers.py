@@ -84,7 +84,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Customer
-        fields = ['id', 'user', 'mobile']
+        fields = ['id', 'user', 'phone']
 
     def __init__(self, *args, **kwargs):
         super(CustomerSerializer, self).__init__(*args, **kwargs)
@@ -94,7 +94,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CustomerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Customer
-        fields = ['id','user', 'mobile']
+        fields = ['id','user', 'phone']
 
     def __init__(self, *args, **kwargs):
         super(CustomerDetailSerializer, self).__init__(*args, **kwargs)
