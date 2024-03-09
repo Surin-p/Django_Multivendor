@@ -10,8 +10,16 @@ python3 manage.py runserver
 pip install djangorestframework
 python3 manage.py startapp main
 python3 manage.py makemigrations
-python3m manage.py migrate
+python3 manage.py migrate
+python -m pip install django-cors-headers
+pip install djangorestframework-simplejwt
+pip install django-filter
 
+//while doing the images
+ pip install pillow
+
+ //for slug
+ pip install django-autoslug
 
 4. init define model
 view: loading templates
@@ -43,3 +51,6 @@ X-Frame-Options: DENY
 
 for admin panel
 npm install admin-lte --save
+
+
+npm install react-scripts --save-dev

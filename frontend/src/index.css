@@ -18,3 +18,23 @@ code {
 footer {
   margin-top: auto;
 }
+
+.footer-style{
+  background-color: #c6dec6;
+}
+
+.footer-link-text{
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+}
+
+.footer-text{
+font-size: 18px;
+font-weight: 400;
+line-height: 22px;
+letter-spacing: 0.02em;
+text-align: left;
+
+}

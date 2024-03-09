@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 //Assets
 import Sidebar from './Sidebar';
+
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
 export default function AddProduct(props) {
