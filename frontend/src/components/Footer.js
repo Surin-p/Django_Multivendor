@@ -7,34 +7,33 @@ export default function Footer() {
     <div className="footer-style">
       <footer className="container py-5">
         <div className="row">
-        <div className="col-6 col-md-4 mb-3">
-            <img className="" style={{width:"200px"}} src={logo}/>
+        <div className="col-6 col-md-4 mb-2">
+            <img className="" style={{width:"100%"}} src={logo}/>
             <ul className="list-unstyled d-flex">
-            {/* <li className="ms-3">
-              <Link className="link-dark" to="#">
-                <svg className="bi" width="24" height="24">
-                   <use xlink:to="#twitter"></use> 
-                </svg>
+            <li className="ms-5 py-5">
+              <Link className="link-new" to="#">
+                <i class="fa-brands fa-facebook"></i>
               </Link>
             </li>
-            <li className="ms-3">
-              <a className="link-dark" to="#">
-                <svg className="bi" width="24" height="24">
-                   <use xlink:to="#instagram"></use> 
-                </svg>
-              </a>
+            <li className="ms-5 py-5">
+              <Link className="link-new" to="#">
+                <i class="fa-brands fa-instagram"></i>
+              </Link>
             </li>
-            <li className="ms-3">
-              <a className="link-dark" to="#">
-                <svg className="bi" width="24" height="24">
-                   <use xlink:to="#facebook"></use> 
-                </svg>
-              </a>
-            </li> */}
-            <li><b><Link className="footer-link-text" to="#" style={{color:"black"}}>Privacy | Terms of Service</Link> </b></li>
+            <li className="ms-5 py-5">
+              <Link className="link-new" to="#">
+                <i class="fa-brands fa-linkedin"></i>
+              </Link>
+            </li>
+            <li className="ms-5 py-5">
+              <Link className="link-new" to="#">
+                <i class="fa-brands fa-youtube"></i>
+              </Link>
+            </li>
+            
           </ul>
         </div>
-          <div className="col-6 col-md-4 mb-3">
+          <div className="col-6 col-md-4 mb-2">
             <h5>Bodhāyana Bookplace</h5>
             
             <ul className="nav flex-column">
@@ -65,7 +64,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-6 col-md-4 mb-3">
+          <div className="col-6 col-md-4 mb-2">
             <h5>Important Links</h5>
             <ul className="nav flex-column">
               <li className="nav-item mb-2">
@@ -89,9 +88,9 @@ export default function Footer() {
 
       
         </div>
-        <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <div className="d-flex flex-column flex-sm-row justify-content-between border-top">
           <p className="footer-text">© 2023 surin. All Rights Reserved.</p>
-         
+          <p><b><Link className="footer-link-text" to="#" style={{color:"black"}}>Privacy | Terms of Service</Link> </b></p>
         </div>
       </footer>
     </div>

@@ -36,5 +36,11 @@ font-weight: 400;
 line-height: 22px;
 letter-spacing: 0.02em;
 text-align: left;
-
 }
+
+.link-new{
+  color:black;
+  font-size:30px;
+}
+
+
