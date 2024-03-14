@@ -9,23 +9,23 @@ export default function Footer() {
         <div className="row">
         <div className="col-6 col-md-4 mb-2">
             <img className="" style={{width:"100%"}} src={logo}/>
-            <ul className="list-unstyled d-flex">
-            <li className="ms-5 py-5">
+            <ul className="list-unstyled d-flex row mt-5 mb-5">
+            <li className="ms-5 py-auto col-6 col-md-1">
               <Link className="link-new" to="#">
                 <i class="fa-brands fa-facebook"></i>
               </Link>
             </li>
-            <li className="ms-5 py-5">
+            <li className="ms-5 py-auto col-6 col-md-1">
               <Link className="link-new" to="#">
                 <i class="fa-brands fa-instagram"></i>
               </Link>
             </li>
-            <li className="ms-5 py-5">
+            <li className="ms-5 py-auto col-6 col-md-1">
               <Link className="link-new" to="#">
                 <i class="fa-brands fa-linkedin"></i>
               </Link>
             </li>
-            <li className="ms-5 py-5">
+            <li className="ms-5 py-auto col-6 col-md-1">
               <Link className="link-new" to="#">
                 <i class="fa-brands fa-youtube"></i>
               </Link>

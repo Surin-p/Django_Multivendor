@@ -1,10 +1,11 @@
 //useParams hooks this is new hooks introduced in react router dom
-//helps to get url parameters, dynamic 
+//helps to get url parameters, dynamic
 // let is used when we need to create a variable that
 //  should be only accessed inside the block.const is
 //  used when we need to create a variable that should
 //  only be accessed inside the block, and the value of
 //   the variable remains unchanged.
+//query is fetched using searchparam while dynamic use params
 
 import SingleProduct from './Customer/SingleProduct';
 import { useState, useEffect } from 'react';
@@ -17,14 +18,14 @@ export default function CategoryProducts(props) {
     //for pagination
     const [totalResults, setTotalResults] = useState(0);
     //for searching url parameters
-    const { category_slug, category_id } = useParams();
+    const {category_slug,category_id } = useParams();
 
     console.log(category_id);
 
     useEffect(() => {
       fetchData(baseUrl+'/products/?category='+category_id); //searching for filter category from query set
     }, []);
-  
+
     function fetchData(baseurl) {
       fetch(baseurl)
         .then((response) => response.json())
@@ -33,7 +34,7 @@ export default function CategoryProducts(props) {
           setTotalResults(data.count);
         });
     }
-    
+
     function changeUrl(baseurl) {
       fetchData(baseurl);
     }
@@ -41,8 +42,8 @@ export default function CategoryProducts(props) {
     //let is a keyword to define block level variable
     for (let i = 1; i <= totalResults; i++){
         links.push(<li key={i} class='page-item'>
-            <Link onClick={() => changeUrl(baseUrl + `/products/?category=${category_id}/page=${i}`)}
-                to={`/category/${category_slug}/${category_id}?page=${i}`} class='page-link'>
+            <Link onClick={() => changeUrl(baseUrl + `/products/?category=${category_id}&page=${i}`)}
+                to={`/category/${category_slug}/${category_id}/?page=${i}`} class='page-link'>
                 {i}</Link></li>
         )
     }
@@ -58,7 +59,7 @@ export default function CategoryProducts(props) {
                         ))}
                         {/* End Product Box*/}
                     </div>
-                    
+
                 </div>
 
                 <nav aria-label="Page navigation example">

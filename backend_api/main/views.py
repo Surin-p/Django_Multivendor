@@ -36,16 +36,19 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductListSerializer
     pagination_class  = pagination.PageNumberPagination
 
-    # Sort out result setParams
+    # # Sort out result setParams
+    # def get_queryset(self):
+    #     qs=super().get_queryset()
+    #     category=self.request.GET['category']
+    #     category=ProductCategory.objects.get(id=category)
+    #     qs=qs.filter(category=category)
+    #     return qs
     def get_queryset(self):
-      
-        # other_filter = self.request.GET.get('other_filter')
         qs = super().get_queryset()
         if 'category' in self.request.GET:
-            category=self.request.GET
-            category=ProductCategory.objects.get(id=category)
+            category_id = self.request.GET['category']
+            category = ProductCategory.objects.get(id=category_id)
             qs = qs.filter(category=category)
-  
         return qs
 
 
@@ -71,11 +74,11 @@ class OrderDetail(generics.ListAPIView):
     #queryset = OrderItem.objects.all()
     serializer_class = OrderDetailSerializer
 
-    def get_queryset(self):
-        order_id=self.kwargs['pk']
-        order = Order.objects.get(id=order_id)
-        order_items = OrderItem.objects.filter(order=order)
-        return order_items
+    # def get_queryset(self):
+    #     order_id=self.kwargs['pk']
+    #     order = Order.objects.get(id=order_id)
+    #     order_items = OrderItem.objects.filter(order=order)
+    #     return order_items
 
 
 #Customer address

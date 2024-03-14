@@ -27,7 +27,7 @@
 //   That's why you need to explicitly add a key
 //    prop to each < div > element in the Categories component.
 
-import logo from '../logo.svg';
+import logo from '../Bodhayana1.png';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
@@ -38,7 +38,7 @@ export default function Categories() {
   const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
-      fetchData(baseUrl+'/categories');
+      fetchData(baseUrl+'/categories/');
   }, []);
 
 function fetchData(baseurl) {

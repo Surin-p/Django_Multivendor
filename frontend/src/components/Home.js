@@ -17,29 +17,23 @@ export default function Home() {
   ]
   return (
     <main className='mt-4'>
-      <div className='container'>
-        {/* Latest Product*/}
-        <h3 className='mb-4'>Latest Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
-        <div className="row">
-          <div className="col-12 col-md-3 col-lg-3 mb-4">
-            {products.map((product) => (<SingleProduct product={product } />))}
-        </div>
-        </div>
-        {/*End Latest Product*/}
-        {/* Popular Category*/}
-        <h3 className='mb-4'>Popular Categories<a href="#" className='float-end btn btn-sm btn-danger'>View All Categories<i className='fa-solid fa-arrow-right-long'></i></a></h3>
+      <div className='container home'>
+              {/* Popular Category*/}
+              <p className="header-small-text">Categories</p>
+              <h3 className='mb-4'>Explore our Top Categories<a href="#" className='float-end btn btn-sm btn-danger btn-bodhayana'><i className='fa-solid fa-arrow-right-long'></i></a></h3>
         <div className='row'>
           {/*Category Box*/}
           <div className='col-12 col-md-3 mb-4'>
             <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
+              <img src={logo} className="card-img-top card-img-cat" alt="..." />
               <div className="card-body">
-                <h4 className="card-title text-danger">Category title</h4>
+                
               </div>
-              <div className='card-footer'>
-                Book Purchased: 2233
-              </div>
+              
             </div>
+            <div className='d-flex justify-content-center card-text'>
+              <Link className="bodhayana-link">Category title</Link>
+              </div>
           </div>
           {/* End Category Box*/}
           {/*Category Box*/}
@@ -47,7 +41,7 @@ export default function Home() {
             <div className="card">
               <img src={logo} className="card-img-top" alt="..." />
               <div className="card-body">
-                <h4 className="card-title text-danger">Category title</h4>
+                <h4 className="card-title text-danger"></h4>
               </div>
               <div className='card-footer'>
                 Book Purchased: 2533
@@ -57,6 +51,16 @@ export default function Home() {
           {/* End Category Box*/}
         </div>
         {/*End Latest Category*/}
+        {/* Latest Product*/}
+        <p className="home-small-text">Some quality items </p>
+        <h3 className='mb-4 home-heading3'>Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
+        <div className="row">
+          <div className="col-12 col-md-3 col-lg-3 mb-4">
+            {products.map((product) => (<SingleProduct product={product } />))}
+        </div>
+        </div>
+        {/*End Latest Product*/}
+
 
         {/* Popular School*/}
         <h3 className='mb-4'>Popular School<a href="#" className='float-end btn btn-sm btn-danger'>View All School<i className='fa-solid fa-arrow-right-long'></i></a></h3>
