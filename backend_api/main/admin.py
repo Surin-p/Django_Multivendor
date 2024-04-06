@@ -33,3 +33,8 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'order_time', 'order_status']
 
 admin.site.register(models.Order, OrderAdmin)
+
+class CompareAdmin(admin.ModelAdmin):
+    list_display = ['id', 'product', 'customer']
+
+admin.site.register(models.Compare, CompareAdmin)

@@ -171,3 +171,82 @@ def CustomerRegister(request):
     return JsonResponse(msg)
 
 
+@csrf_exempt
+def VendorRegister(request):
+    first_name=request.POST.get('first_name');
+    last_name=request.POST.get('last_name');
+    email=request.POST.get('email');
+    phone=request.POST.get('phone');
+    address=request.POST.get('address');
+    username=request.POST.get('username');
+    password=request.POST.get('password');
+    try:
+        user=User.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            username=username,
+            password=password
+        )
+
+
+        if user:
+            #create customer
+            try:
+                vendor=Vendor.objects.create(
+                    user=user,
+                    phone=phone,
+                    address=address,
+                )
+
+                msg={
+                    'bool':True,
+                    'user':user.id,
+                    'vendor': vendor.id,
+                    'msg': 'Thank you for joining with us ^_^. You can login now.'
+                }
+            except IntegrityError:
+                msg={
+                    'bool':False,
+                    'msg':'Phone Number already exist!!!!!'
+                }
+        else:
+            msg={
+                'bool':False,
+                'msg':'You have provided invalid credentials.'
+            }
+    except IntegrityError:
+        msg={
+            'bool':False,
+            'msg':'Username already exist!!!!!!'
+        }
+    return JsonResponse(msg)
+
+
+#creating post request we create csrf token
+@csrf_exempt
+def VendorLogin(request):
+    #django save password in the hash format so password must be in hash
+    # msg={
+    #     'bool':True,
+    #     'post': request.POST
+    #     }
+    username=request.POST.get('username')
+    password=request.POST.get('password')
+    user=authenticate(username=username, password=password)
+    if user:
+        vendor = vendor.objects.get(user=user)
+        msg={
+            'bool':True,
+            'user':user.username,
+            'id':vendor.id,
+        }
+    else:
+        msg={
+            'bool':False,
+            'msg':'Invalid Username/Password'
+        }
+    return JsonResponse(msg)
+
+
+

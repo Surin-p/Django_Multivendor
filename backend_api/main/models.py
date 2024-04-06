@@ -7,7 +7,8 @@ from django.template.defaultfilters import slugify
 class Vendor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.TextField(null =True)
-
+    phone = models.PositiveBigIntegerField(unique=True, null=True)
+    profile_img = models.ImageField(upload_to='school_imgs/', null=True)
     def __str__(self):
         return self.user.username
 
@@ -17,7 +18,7 @@ class Vendor(models.Model):
 class ProductCategory(models.Model):
     title = models.CharField(max_length=200)
     detail = models.TextField(null=True)
-
+    category_image = models.ImageField(upload_to='category_imgs/', null=True)
     def __str__(self):
         return self.title
     
@@ -29,8 +30,10 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length = 250, null = True, blank = True, unique=True)
     detail = models.TextField(null=True)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    tags = models.TextField(null=True)
     image = models.ImageField(upload_to='product_imgs/', null=True)
+    product_file = models.FileField(upload_to='product_files/', null=True)
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -38,6 +41,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    def tag_list(self):
+        tagList = self.tags.split(',')
+        return tagList
     
     
 
@@ -45,7 +51,7 @@ class Product(models.Model):
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     phone = models.PositiveBigIntegerField(unique=True)
-
+    profile_img = models.ImageField(upload_to='customer_imgs/', null=True)
     def __str__(self):
         return self.user.username
      
@@ -94,3 +100,14 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.title
+    
+#Compare Model
+class Compare(models.Model):
+    product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete = models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Compare List'
+    def __str__(self):
+        return f"{self.product.title} - {self.customer.user.first_name}"
+    
