@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import logo from "../Bodhayana1.png";
-import lotus from "../lotus.jpg";
+import { useContext, useEffect } from "react";
+import { UserContext, CartContext } from "../Context";
+
 function Header() {
+  const userContext = useContext(UserContext);
+  const {cartData, setCartData} = useContext(CartContext);
+  useEffect(() => {
+    // Attempt to load cartData from local storage when component mounts
+    const storedCartData = localStorage.getItem('cartData');
+    if (storedCartData) {
+      setCartData(JSON.parse(storedCartData));
+    }
+  }, []); // Only run this once when the component mounts
   return (
     <div>
     {/* <section className="social-div-nav">
@@ -50,7 +61,8 @@ function Header() {
          </div>
      </div>
      
-    </section> */}
+    </section> 
+    */}
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="nav-link active" aria-current="page" href="#" to="/">SCHOOL BOOKSET</Link>
@@ -69,7 +81,10 @@ function Header() {
               <Link className="nav-link" aria-current="page" href="#" to="/categories">Categories</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" href="#" to="/checkout">My Cart(2)</Link>
+         
+            <Link className="nav-link" aria-current="page" href="#" to="/checkout">
+              My Cart ({cartData ? cartData.length : 0})
+            </Link>
             </li>
             
             <li className="nav-item">
@@ -84,13 +99,20 @@ function Header() {
                 My Profile
               </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/customer/logout">Logout</Link></li>
+              {userContext !='true' && 
+                <>
+                  <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
+                  <li><hr className="dropdown-divider"/></li>
+                  <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
+                </>
+              }
+                {userContext == 'true' && 
+                  <>
+                    <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
+                    <li><hr className="dropdown-divider"/></li>
+                    <li><Link className="dropdown-item" to="/customer/logout">Logout</Link></li>
+                  </>
+                }
               </ul>
             </li>
             <li className="nav-item dropdown">
@@ -107,29 +129,10 @@ function Header() {
                 <li><Link className="dropdown-item" to="/seller/login">Logout</Link></li>
               </ul>
             </li>
-
           </ul>
-
         </div>
       </div>
     </nav>
-    <section class="header-section">
-    <div className=" container">
-      <div className="row">
-        <div className="col-12 col-md-6 mt-5 p-5 header-text">
-          <h2>BODHAYANA BOOKPLACE</h2>
-          <p>"A book is a garden, an orchard, a storehouse, 
-           party,<br/> a company by the way, a counselor, a multitude of counselors." <br/>– Charles Baudelaire</p>
-
-          <button className="read-more-btn mt-5 mb-0"><Link className="read-more">Read More<i class="fa-solid fa-arrow-right"></i></Link></button>
-          
-        </div>
-        <div className="col-12 col-md-6 mt-5 p-5">
-          <img className="image-header" src={lotus}/>
-        </div>
-      </div>
-      </div>
-    </section>
     </div>
   )
 }

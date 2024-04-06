@@ -1,22 +1,45 @@
 import { Link } from "react-router-dom";
 import logo from '../logo.svg';
 import SingleProduct from './Customer/SingleProduct';
-import AllProducts from './AllProducts';
+import lotus from "../lotus.jpg";
+import {useState, useEffect} from 'react';
 
 export default function Home() {
-  const products = [
-    {
-    
-      'title': 'Django',
-      'price':'500'
-    },
-    {
-      'title': 'python',
-      'price':'500'
-    },
-  ]
+  const baseUrl = 'http://127.0.0.1:8000/api';
+  const [products, setProducts] = useState([]);
+  
+
+  useEffect(() => {
+    fetchData(baseUrl+'/products/?fetch_limit=4');
+  }, []);
+
+  function fetchData(baseurl) {
+    fetch(baseurl)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data.results);
+      });
+  }
+
   return (
     <main className='mt-4'>
+    <section class="header-section">
+    <div className=" container">
+      <div className="row">
+        <div className="col-12 col-md-6 mt-5 p-5 header-text">
+          <h2>BODHAYANA BOOKPLACE</h2>
+          <p>"A book is a garden, an orchard, a storehouse, 
+           party,<br/> a company by the way, a counselor, a multitude of counselors." <br/>– Charles Baudelaire</p>
+
+          <button className="read-more-btn mt-5 mb-0"><Link className="read-more">Read More<i class="fa-solid fa-arrow-right"></i></Link></button>
+          
+        </div>
+        <div className="col-12 col-md-6 mt-5 p-5">
+          <img className="image-header" src={lotus}/>
+        </div>
+      </div>
+      </div>
+    </section>
       <div className='container home'>
               {/* Popular Category*/}
               <p className="header-small-text">Categories</p>
@@ -54,11 +77,10 @@ export default function Home() {
         {/* Latest Product*/}
         <p className="home-small-text">Some quality items </p>
         <h3 className='mb-4 home-heading3'>Books<Link to="/products" className='float-end btn btn-sm btn-danger'>View All Products<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
-        <div className="row">
-          <div className="col-12 col-md-3 col-lg-3 mb-4">
+        <div className="row mb-4">
             {products.map((product) => (<SingleProduct product={product } />))}
         </div>
-        </div>
+      
         {/*End Latest Product*/}
 
 

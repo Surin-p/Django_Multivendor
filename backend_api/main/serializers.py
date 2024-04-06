@@ -10,7 +10,6 @@ class VendorSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(VendorSerializer, self).__init__(*args, **kwargs)
         #self.Meta.depth = 1
-
         
 class VendorDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +45,7 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields = ['id', 'title', 'slug', 'category', 'detail', 'price', 'vendor']
+        fields = ['id', 'title', 'slug','image', 'category', 'detail', 'price', 'vendor']
 
     def __init__(self, *args, **kwargs):
         super(ProductListSerializer, self).__init__(*args, **kwargs)
@@ -73,7 +72,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         many=True
         model = models.Product
-        fields = ['id', 'category','title', 'detail', 'price', 'vendor', 'product_ratings', 'product_imgs']
+        fields = ['id', 'category','title', 'slug','image','detail', 'price', 'vendor', 'product_ratings', 'product_imgs']
 
     def __init__(self, *args, **kwargs):
         super(ProductDetailSerializer, self).__init__(*args, **kwargs)
@@ -105,11 +104,8 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Order
-        fields = ['id', 'customer', 'order_time']
+        fields = ['id', 'customer', 'order_time', 'order_status']
 
-    def __init__(self, *args, **kwargs):
-        super(OrderSerializer, self).__init__(*args, **kwargs)
-        #self.Meta.depth = 1
 
         
 class OrderDetailSerializer(serializers.ModelSerializer):
@@ -120,6 +116,13 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(OrderDetailSerializer, self).__init__(*args, **kwargs)
         #self.Meta.depth = 1
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.OrderItem
+        fields = ['id','order', 'product', 'price', 'quantity']
+
+    
 
 #Customer Address
 class CustomerAddressSerializer(serializers.ModelSerializer):

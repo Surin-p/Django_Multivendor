@@ -3,7 +3,7 @@ from .models import Vendor, Product, Customer,Order, OrderItem, CustomerAddress,
 from .serializers import VendorSerializer, VendorDetailSerializer
 from .serializers import ProductListSerializer, ProductDetailSerializer, ProductRatingSerializer
 from .serializers import CustomerDetailSerializer, CustomerSerializer, CustomerAddressSerializer
-from .serializers import OrderSerializer, OrderDetailSerializer
+from .serializers import OrderSerializer, OrderDetailSerializer, OrderItemSerializer
 from .serializers import CategorySerializer, CategoryDetailSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -37,18 +37,16 @@ class ProductList(generics.ListCreateAPIView):
     pagination_class  = pagination.PageNumberPagination
 
     # # Sort out result setParams
-    # def get_queryset(self):
-    #     qs=super().get_queryset()
-    #     category=self.request.GET['category']
-    #     category=ProductCategory.objects.get(id=category)
-    #     qs=qs.filter(category=category)
-    #     return qs
     def get_queryset(self):
         qs = super().get_queryset()
         if 'category' in self.request.GET:
             category_id = self.request.GET['category']
             category = ProductCategory.objects.get(id=category_id)
             qs = qs.filter(category=category)
+            qs = super().get_queryset()
+        if 'fetch_limit' in self.request.GET:
+            limit = int(self.request.GET['fetch_limit'])
+            qs = qs[:limit]
         return qs
 
 
@@ -81,6 +79,10 @@ class OrderDetail(generics.ListAPIView):
     #     return order_items
 
 
+class OrderItemList(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
 #Customer address
 class CustomerAddressViewSet(viewsets.ModelViewSet):
     #queryset = OrderItem.objects.all()
@@ -106,9 +108,11 @@ def CustomerLogin(request):
     password=request.POST.get('password')
     user=authenticate(username=username, password=password)
     if user:
+        customer = Customer.objects.get(user=user)
         msg={
             'bool':True,
-            'user':user.username
+            'user':user.username,
+            'id':customer.id,
         }
     else:
         msg={
@@ -130,7 +134,6 @@ def CustomerRegister(request):
             first_name=first_name,
             last_name=last_name,
             email=email,
-
             username=username,
             password=password
         )

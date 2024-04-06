@@ -52,6 +52,7 @@ export default function Register(props) {
                 if (response.data.bool === false) {
                     setFormError(true);
                     setErrorMsg(response.data.msg);
+                    setSuccessMsg('');
                 } else {
                     setRegisterFormData({
                         "first_name": '',
@@ -88,7 +89,8 @@ export default function Register(props) {
                         <div className='card'>
                             <div className='card-body'>
                                 <p className='text-muted'><strong className='text-secondary'>Note:</strong> All the fields are required.</p>
-                                {successMsg && <p className='text-danger'>{ successMsg}</p>}
+                                {successMsg && <p className='text-success'>{ successMsg}</p>}
+                                {errorMsg && <p className='text-danger'>{errorMsg}</p>}
                                 <form>
                                     <div className="mb-3">
                                         <label for="firstname" className="form-label">First Name</label>

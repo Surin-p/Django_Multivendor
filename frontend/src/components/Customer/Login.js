@@ -38,8 +38,11 @@ export default function Login(props) {
                     setFormError(true);
                     setErrorMsg(response.data.msg);
                 } else {
+                    console.log(response.data);
+                    localStorage.setItem('customer_id', response.data.id);
                     localStorage.setItem('customer_login', true);
                     localStorage.setItem('customer_username', response.data.user);
+
                     setFormError(false);
                     setErrorMsg('');
                 }
@@ -52,6 +55,7 @@ export default function Login(props) {
     }
     const checkCustomer = localStorage.getItem('customer_login');
     if (checkCustomer) {
+        
         window.location.href='/customer/dashboard'
     }
     const buttonEnable = (loginFormData.username !== '') && (loginFormData.password !== '') 

@@ -17,19 +17,23 @@ function SingleProduct(props) {
   
   const title = props.product?.title;
   const price = props.product?.price;
+  const image = props.product?.image;
   const id = props.product?.id;
   return (
-  <section className=''>
-      <div className='mb-4'>
-        <div key={id} className=''>
+  
+      <div className=''>
+          {/*Category Box*/}
+          <div className='col-12 col-md-3 mb-4'>
+          <div key={id} className=''>
           <div className="card ">
-            <Link to={`/product/${title}/${id}`}>
-              <img src={logo} className="card-img-top" alt="{title}" />
-            </Link>
+          <Link to={`/product/${props.product?.slug}/${id}`}>
+            <img src={image} className="card-img-top" alt={props.product?.title}/>
+            {console.log(image)}
+          </Link>
 
             <div className="card-body">
               <h4 className="card-title text-danger">
-                <Link to={`/product/${title}/${id}`}>
+                <Link to={`/product/${props.product?.slug}/${id}`}>
                   {title}
                 </Link>
               </h4>
@@ -40,9 +44,12 @@ function SingleProduct(props) {
               <button title="Add to Compare" className='btn btn-danger btn-sm ms-1'><i className="fa-solid fa-scale-unbalanced"></i></button>
             </div>
           </div>
-        </div>
-      </div>
-      </section>
+                
+              </div>
+              
+    </div>
+    </div>   
+          
   );
 }
 
