@@ -7,6 +7,7 @@ const baseUrl = 'http://127.0.0.1:8000/api'
 export default function ConfirmOrder(){
     const [confirmOrder, setConfirmOrder] = useState(false); //running multiple time
     const [orderId, setOrderId] = useState('');
+    const [orderAmount, setOrderAmount] = useState('');
     const [payMethod, setPayMethod] = useState('');
     const userContext = useContext(UserContext);
     const {cartData, setCartData} = useContext(CartContext);
@@ -24,13 +25,23 @@ export default function ConfirmOrder(){
     function addOrderInTable(){
         const customerID = localStorage.getItem('customer_id');
         console.log(customerID)
+        var total_amount = 0;
+        var previousCart = localStorage.getItem('cartData');
+        var cartJson =  JSON.parse(previousCart);
+        cartJson.map((cart)=>{
+            total_amount += parseFloat(cart.product.price);
+        })
         const formData = new FormData();
         formData.append('customer',customerID);
+        formData.append('total_amount',total_amount);
+
+        
         //submit 
         axios.post(baseUrl+'/orders/', formData)
         .then(function(response){
             console.log(response.data);
             var orderId = response.data.id;
+            setOrderAmount(total_amount);
             setOrderId(orderId);
             orderItems(orderId);
             setConfirmOrder(true);
@@ -95,6 +106,7 @@ export default function ConfirmOrder(){
                 <div className="card text-center">
                     <h3><i className="fa fa-check-circle text-success"></i>Your Order Has been Confirmed</h3>
                     <h5>Order ID: {orderId}</h5>
+                    <h5>Your Total Amount: {orderAmount}</h5>
                 </div>
                 <div className="card oy-3 mt-4 p-3">
                     <form>

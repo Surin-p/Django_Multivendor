@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import SingleProduct from './Customer/SingleProduct';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext, CartContext } from '../Context';
@@ -13,21 +12,23 @@ export default function ProductDetail() {
     //for searching url parameters
     const { product_slug, product_id } = useParams();
     const {cartData, setCartData} = useContext(CartContext);
+    const userContext = useContext(UserContext);
+    
     
     //The useEffect hook in React is used to perform side effects in functional components. Side effects can include data fetching, subscriptions, or manually changing the DOM in React components.
     useEffect(() => {
         fetchData(baseUrl+'/product/'+product_id);
        // fetchRelatedData(baseUrl+'/related-products/'+product_id);
         checkProductInCart(product_id);
-    }, []); //In our case, we're fetching initial data for our component.if dependency use infinite loop By omitting dependencies from the useEffect hook, we ensure that the effect runs only once when the component mounts, and not again on subsequent re-renders. This is suitable for fetching initial data that doesn't depend on any props or state changes.
+    }, [product_id]); //In our case, we're fetching initial data for our component.if dependency use infinite loop By omitting dependencies from the useEffect hook, we ensure that the effect runs only once when the component mounts, and not again on subsequent re-renders. This is suitable for fetching initial data that doesn't depend on any props or state changes.
     
     //checking the cart in localstorage if there is item in cart the remove from cart will be shown
     function checkProductInCart(product_id){
         var previousCart = localStorage.getItem('cartData');
         var cartJson = JSON.parse(previousCart);
-        if(cartJson!=null){
+        if(cartJson!==null){
             cartJson.map((cart) => {
-                if(cart!=null && cart.product.id == product_id){
+                if(cart!==null && cart.product.id === product_id){
                     setCartButtonClickStatus(true);
                 }
             });
@@ -82,7 +83,7 @@ export default function ProductDetail() {
         }else{
             var newCartList = [];
             newCartList.push(cartData);
-            var cartString = JSON.stringify(newCartList);
+            cartString = JSON.stringify(newCartList);
             localStorage.setItem('cartData', cartString);
         }
         
@@ -93,7 +94,7 @@ export default function ProductDetail() {
         var previousCart = localStorage.getItem('cartData');
         var cartJson = JSON.parse(previousCart);
         cartJson.map((cart, index)=>{
-            if(cart!=null && cart.product.id == productData.id){
+            if(cart!==null && cart.product.id === productData.id){
                 //delete cartJson[index];
                 cartJson.splice(index,1); //remove array element from the index
             }
@@ -102,6 +103,29 @@ export default function ProductDetail() {
         localStorage.setItem('cartData', cartString);
         setCartButtonClickStatus(false); // Reflect that the product is removed from the cart
         setCartData(cartJson);
+    }
+
+    //saveInCompareList
+    function saveInCompareList(){
+        const customerID = localStorage.getItem('customer_id');
+        const formData = new FormData();
+        formData.append('customer',customerID);
+        formData.append('product',productData.id);
+        //submit 
+        // axios.post(baseUrl+'/orders/', formData)
+        // .then(function(response){
+        //     console.log(response.data);
+        //     var orderId = response.data.id;
+        //     setOrderAmount(total_amount);
+        //     setOrderId(orderId);
+        //     orderItems(orderId);
+        //     setConfirmOrder(true);
+        // })
+        // .catch(function(error){
+        //     console.log(error);
+        // });
+              
+            
     }
     
     return (
@@ -124,7 +148,7 @@ export default function ProductDetail() {
                     </div>
                     <div className="carousel-inner">
                     {productImgs.map((img, index) => {
-                        if(index==0){
+                        if(index===0){
                             return <div className='carousel-item active'>
                             <img src={img.image} className="img-thumbnail mb-5" alt={`Product Image ${index + 1}`} />
                             </div>
@@ -144,7 +168,7 @@ export default function ProductDetail() {
                     <button className="carousel-control-next" type="button" data-bs-target="#productThumbnailSilder" data-bs-slide="next">
                         <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         <span className="visually-hidden">Next</span>
-                    </button> 
+                    </button> ``
                 </div>
                 <div className="col-8">
                         <h3>{ productData.title }</h3>
@@ -158,7 +182,15 @@ export default function ProductDetail() {
                         {cartButtonClickStatus &&
                             <button title="Add to Cart" type='button' onClick={cartRemoveButtonHandler} className='btn btn-warning btn-sm ms-1'><i className='fa-solid fa-cart-plus ms-1'></i>Remove from Cart</button>
                         }
-                        <button title="Add to Compare" className='btn btn-success btn-sm ms-1'><i className="fa-solid fa-scale-unbalanced ms-1"></i> Compare</button>
+
+                        {/* {
+                            userContext.login && <button onClick={saveInCompareList} title="Add to Compare" className='btn btn-success btn-sm ms-1'><i className="fa-solid fa-scale-unbalanced ms-1"></i> Compare</button>
+                        }
+
+                        {
+                            userContext.login == null && <button title="Add to Compare" className='btn btn-danger btn-sm ms-1 disabled'><i className="fa-solid fa-scale-unbalanced ms-1"></i> Compare</button>
+                        } */}
+                        
                     </p>
                     <div className='product-tags'>
                         <h5 className='mt-3'>

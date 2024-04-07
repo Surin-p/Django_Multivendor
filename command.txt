@@ -67,3 +67,6 @@ paypal: https://www.npmjs.com/package/@paypal/react-paypal-js
 paypal: https://developer.paypal.com/community/blog/how-to-add-paypal-checkout-payments-to-your-react-app/
 Khalti: https://docs.khalti.com/khalti-epayment/
 Khalti: https://github.com/khalti/docs.khalti.com
+
+fileHandler: https://www.geeksforgeeks.org/file-uploading-in-react-js/
+mapping: https://www.shecodes.io/athena/7184-how-to-use-the-map-method-in-react

@@ -4,7 +4,6 @@
 //    principle of separation of concerns and makes the SingleProduct 
 //    component less reusable.
 import { Link } from 'react-router-dom';
-import logo from '../logo.svg';
 import SingleProduct from './Customer/SingleProduct';
 import { useState, useEffect } from 'react';
 
@@ -42,11 +41,11 @@ export default function AllProducts() {
       <section className='container mt-4'>
         <h3 className='mb-4'>Books List</h3> 
         <div className='row'>
-        <div className="col-12 col-md-3 col-lg-3 mb-4">
+      
               {products.map((product) => (
                 <SingleProduct product={product} />
               ))}
-            </div>
+         
           </div>
         <nav aria-label="Page navigation example">
           <ul className="pagination">

@@ -6,6 +6,7 @@ import { UserContext, CartContext } from "../Context";
 function Header() {
   const userContext = useContext(UserContext);
   const {cartData, setCartData} = useContext(CartContext);
+  const checkVendor = localStorage.getItem('vendor_login');
   useEffect(() => {
     // Attempt to load cartData from local storage when component mounts
     const storedCartData = localStorage.getItem('cartData');
@@ -14,55 +15,7 @@ function Header() {
     }
   }, []); // Only run this once when the component mounts
   return (
-    <div>
-    {/* <section className="social-div-nav">
-        <ul className="list-unstyled d-flex py-2 mb-1">
-            <li className="ms-5">
-              <Link className="link-secondary" to="#">
-              <i className="fa-brands fa-facebook-f fa-xl"></i>
-              </Link>
-            </li>
-            <li className="ms-3">
-              <Link className="link-secondary" to="#">
-                <i className="fa-brands fa-instagram fa-xl"></i>
-              </Link>
-            </li>
-            <li className="ms-3">
-              <Link className="link-secondary" to="#">
-                <i className="fa-brands fa-linkedin fa-xl"></i>
-              </Link>
-            </li>
-            <li className="ms-3">
-              <Link className="link-secondary" to="#">
-                <i className="fa-brands fa-youtube fa-xl"></i>
-              </Link>
-            </li>
-            
-          </ul>
-    </section>
-    <section className="nav-logo row">
-     <div className="col-6 col-md-6 mb-2">
-            <img className="" style={{width:"30%"}} src={logo}/>
-     </div>
-     <div className="col-6 col-md-6 mb-2 ">
-     <div className="row justify-content-end">
-        <div className="col-6 col-md-3 ms-0 mb-2">
-            <Link>My Account</Link>
-            </div>
-         <div className="col-6 col-md-3 d-flex flex-column flex-sm-row justify-content-right mb-2">
-          <Link>My Profile</Link>
-         </div>
-         <div className="box col-6 col-md-3 mb-2 mr-5">
-            <input type="text" placeholder="Search"/>
-            <Link className="search-box" to="">
-            <i className="fa-solid fa-magnifying-glass search-icon"></i>
-            </Link>
-          </div>
-         </div>
-     </div>
-     
-    </section> 
-    */}
+    
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="nav-link active" aria-current="page" href="#" to="/">SCHOOL BOOKSET</Link>
@@ -119,21 +72,32 @@ function Header() {
               <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" to="/">
                 School Panel
               </Link>
+              
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+              {checkVendor && 
+                <>
+                <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
+                <li><hr className="dropdown-divider"/></li>
+                <li><Link className="dropdown-item" to="/seller/logout">Logout</Link></li>
+                </>
+              }
+              {!checkVendor &&
+              <>
                 <li><Link className="dropdown-item" to="/seller/register">Register</Link></li>
                 <li><hr className="dropdown-divider"/></li>
                 <li><Link className="dropdown-item" to="/seller/login">Login</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/seller/login">Logout</Link></li>
+                
+              </>
+              }
+                
+                
               </ul>
             </li>
           </ul>
         </div>
       </div>
-    </nav>
-    </div>
+   </nav>
+
   )
 }
 

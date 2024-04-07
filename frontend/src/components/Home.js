@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import logo from '../logo.svg';
 import SingleProduct from './Customer/SingleProduct';
+import SingleCategory from "./Customer/SingleCategory";
 import lotus from "../lotus.jpg";
 import {useState, useEffect} from 'react';
 
 export default function Home() {
   const baseUrl = 'http://127.0.0.1:8000/api';
   const [products, setProducts] = useState([]);
-  
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     fetchData(baseUrl+'/products/?fetch_limit=4');
+    fetchCategoryData(baseUrl+'/categories/?fetch_limit=4');
   }, []);
 
   function fetchData(baseurl) {
@@ -18,9 +20,17 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.results);
+        setCategories(data.results);
       });
   }
-
+  function fetchCategoryData(baseurl) {
+    fetch(baseurl)
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.results);
+      });
+  }
+  
   return (
     <main className='mt-4'>
     <section class="header-section">
@@ -42,37 +52,13 @@ export default function Home() {
     </section>
       <div className='container home'>
               {/* Popular Category*/}
-              <p className="header-small-text">Categories</p>
+              <p className="header-small-text mt-2">Categories</p>
               <h3 className='mb-4'>Explore our Top Categories<a href="#" className='float-end btn btn-sm btn-danger btn-bodhayana'><i className='fa-solid fa-arrow-right-long'></i></a></h3>
-        <div className='row'>
-          {/*Category Box*/}
-          <div className='col-12 col-md-3 mb-4'>
-            <div className="card">
-              <img src={logo} className="card-img-top card-img-cat" alt="..." />
-              <div className="card-body">
-                
-              </div>
-              
-            </div>
-            <div className='d-flex justify-content-center card-text'>
-              <Link className="bodhayana-link">Category title</Link>
-              </div>
-          </div>
-          {/* End Category Box*/}
-          {/*Category Box*/}
-          <div className='col-12 col-md-3 mb-4'>
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title text-danger"></h4>
-              </div>
-              <div className='card-footer'>
-                Book Purchased: 2533
-              </div>
-            </div>
-          </div>
-          {/* End Category Box*/}
-        </div>
+                <div className='row mb-4'>
+                      {/*Category Box*/}
+                      {categories.map((product_category) => (<SingleCategory product_category={product_category} />))}
+                    </div>
+ 
         {/*End Latest Category*/}
         {/* Latest Product*/}
         <p className="home-small-text">Some quality items </p>
@@ -80,10 +66,7 @@ export default function Home() {
         <div className="row mb-4">
             {products.map((product) => (<SingleProduct product={product } />))}
         </div>
-      
         {/*End Latest Product*/}
-
-
         {/* Popular School*/}
         <h3 className='mb-4'>Popular School<a href="#" className='float-end btn btn-sm btn-danger'>View All School<i className='fa-solid fa-arrow-right-long'></i></a></h3>
         <div className='row'>
@@ -182,8 +165,6 @@ export default function Home() {
           </button>
         </div>
         {/*End of Rating and Reviews*/}
-
-
       </div>
     </main>
   )
