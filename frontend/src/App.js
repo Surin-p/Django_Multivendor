@@ -41,7 +41,7 @@ import Customer from "./components/School/Customer";
 import Report from "./components/School/Report";
 import SchoolChangePassowrd from "./components/School/SchoolChangePassword";
 import SchoolProfile from "./components/School/SchoolProfile";
-
+import SchoolLogout from "./components/School/Logout";
 import { CartContext } from "./Context";
 import { useState } from "react";
 const checkCart = localStorage.getItem('cartDate');
@@ -75,6 +75,7 @@ function App() {
           {/*School Routes*/}
           <Route path ="/seller/dashboard" element={<SchoolDashboard/>}/>
           <Route path ="/seller/login" element={<SchoolLogin/>}/>
+          <Route path ="/seller/logout" element={<SchoolLogout/>}/>
           <Route path ="/seller/register" element={<SchoolRegister/>}/>
           <Route path ="/seller/products" element={<SchoolProducts/>}/>
           <Route path ="/seller/add-product" element={<AddProduct/>}/>

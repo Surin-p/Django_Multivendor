@@ -235,7 +235,7 @@ def VendorLogin(request):
     password=request.POST.get('password')
     user=authenticate(username=username, password=password)
     if user:
-        vendor = vendor.objects.get(user=user)
+        vendor = Vendor.objects.get(user=user)
         msg={
             'bool':True,
             'user':user.username,
@@ -247,6 +247,3 @@ def VendorLogin(request):
             'msg':'Invalid Username/Password'
         }
     return JsonResponse(msg)
-
-
-
