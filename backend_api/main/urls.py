@@ -15,7 +15,8 @@ urlpatterns=[
     #Products
     path('products/', views.ProductList.as_view()),
     path('product/<int:pk>/', views.ProductDetail.as_view()),
-
+    path('products-imgs/', views.ProductImgsList.as_view()),
+    path('products-imgs/<int:product_id>/', views.ProductImgsDetail.as_view()),
     #Customers
     path('customers/', views.CustomerList.as_view()),
     path('customer/<int:pk>/', views.CustomerDetail.as_view()),

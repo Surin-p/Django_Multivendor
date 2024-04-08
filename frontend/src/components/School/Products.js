@@ -2,14 +2,29 @@
 import { Link } from "react-router-dom"
 import logo from '../../logo.svg';
 import SchoolSidebar from "./Sidebar"
+import { useEffect, useState } from "react";
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
+const baseUrl = 'http://127.0.0.1:8000/api/';
 export default function SchoolProducts() {
+    
+    const [productData, setProductData] = useState([]);
+    useEffect(()=>{
+        fetchData(baseUrl+'products/');
+        
+    },[]);
+
+    function fetchData(baseurl){
+        fetch(baseurl)
+        .then((response) => response.json())
+        .then((data)=>{
+            setProductData(data.results);
+        });
+    }
+    console.log(productData);
     return (
         <section>
-
             <div className='container mt-4'>
-
                 <div className='row'>
                     <div className='col-md-3 col-12 mb-2'>
                      <SchoolSidebar/>
@@ -23,7 +38,7 @@ export default function SchoolProducts() {
                                         <tr>
                                             <td colSpan="5">
                                                 <Link to = "/seller/add-product" className='btn btn-outline-danger mb-4 float-end'>
-                                                    <i class="fa-solid fa-circle-plus"></i> Add Product
+                                                    <i class="fa-solid fa-circle-plus"></i> Product
                                                 </Link>
                                             </td>
                                         </tr>
@@ -31,41 +46,23 @@ export default function SchoolProducts() {
                                             <th>S.No</th>
                                             <th>Product</th>
                                             <th>Price</th>
-                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                       
-                                            <td>1</td>
-                                            <td><Link><img src={logo} className="img-thumbnail" width="80" alt="..." /></Link>
-                                                <p><Link>Asmita Publication</Link></p>
-                                            </td>
-
-                                            <td>Rs. 500</td>
-                                            <td><span className='text-success'><i className="fa-solid fa-circle-check"></i>Sold</span></td>
-                                            <td>
-                                                <Link to="/" className="btn btn-success">View</Link>
-                                                <Link to="/" className="btn btn-primary ms-1">Edit</Link>
-                                                <Link to="/" className="btn btn-danger ms-1">Delete</Link>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><Link><img src={logo} className="img-thumbnail" width="80" alt="..." /></Link>
-                                                <p><Link>HSCB SEE Collection</Link></p>
-                                            </td>
-                                            <td>Rs. 550</td>
-                                            <td><span className='text-danger'><i className="fa-solid fa-circle-xmark"></i>Cancelled</span></td>
-                                            <td>
-                                                <Link to="/" className="btn btn-success">View</Link>
-                                                <Link to="/" className="btn btn-primary ms-1">Edit</Link>
-                                                <Link to="/" className="btn btn-danger ms-1">Delete</Link>
-                                                
-                                            </td>
-                                        </tr>
+                                        {
+                                            productData.map((product, index)=>
+                                            <tr>
+                                                <td>{product.id}</td>
+                                                <td><Link to={`/seller/update-product/${product.id}`}>{product.title}</Link></td>
+                                                <td>Rs.{product.price}</td>
+                                                <td>
+                                                    <a href='#' className="btn btn-success ms-1">Edit</a>
+                                                    <a href='#' className="btn btn-danger ms-1">Delete</a>
+                                                </td>
+                                            </tr>
+                                            )
+                                        }
                                     </tbody>
 
                                     

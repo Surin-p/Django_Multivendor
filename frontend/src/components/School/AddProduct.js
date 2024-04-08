@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
 export default function AddProduct() {
-    const baseUrl = 'http://127.0.0.1:8000/api';
+    const baseUrl = 'http://127.0.0.1:8000/api/';
     const vendor_id = localStorage.getItem('vendor_id');
     const [categoryData, setCategoryData]=useState([]);
     const [errorMsg, setErrorMsg]=useState('');
@@ -17,11 +17,15 @@ export default function AddProduct() {
         'category':'',
         'title':'',
         'slug':'',
+        'price':'',
         'detail':'',
         'tags':'',
         'image':'',
-        'product_file':''
-    })
+    });
+
+    const [imgUploadErrorMsg, setImgUploadErrorMsg] = useState('');
+    const [imgUploadSuccessMsg, setImgUploadSuccessMsg] = useState('');
+    const [productImgs, setProductImgs] = useState([]);
 
     const inputHandler = (event) =>{
         setProductData({
@@ -33,8 +37,15 @@ export default function AddProduct() {
     const fileHandler = (event) =>{
         setProductData({
             ...productData,
-            [event.target.name]: event.target.files[0]
+            [event.target.name]:event.target.files[0]
         })
+    }
+
+    const multipleFileHandler = (event) =>{
+        var files = event.target.files;
+        if(files.length>0){
+            setProductImgs(files);
+        }
     };
 
     const submitHandler = ()=>{
@@ -43,40 +54,61 @@ export default function AddProduct() {
         formData.append('category', productData.category);
         formData.append('title', productData.title);
         formData.append('slug', productData.slug);
+        formData.append('price', productData.price);
         formData.append('detail', productData.detail);
         formData.append('tags', productData.tags);
         formData.append('image', productData.image);
-        formData.append('product_file', productData.product_file);
+
         //submit data
-        axios.post(baseUrl+'/products/',formData,{
+        axios.post(baseUrl+'products/',formData,{
             header:{
                 'content-type': 'multipart/form-data'
             }
         })
         .then(function (response){
-            if(response.data.bool==false){
-                setErrorMsg(response.data.msg)
-                setSuccessMsg('');
-            }else{
+            console.log(response);
+            if(response.status==201){
                 setProductData({
                     'vendor': vendor_id,
                     'category':'',
                     'title':'',
                     'slug':'',
+                    'price':'',
                     'detail':'',
                     'tags':'',
                     'image':'',
-                    'product_file':''
                 });
                 setErrorMsg('')
-                setSuccessMsg(response.data.msg);
-            }
+                setSuccessMsg(response.statusText);
 
+                for (let i=0;i < productImgs.length; i++)
+                {
+                    const imageFormData = new FormData();
+                    imageFormData.append('product', response.data.id);
+                    imageFormData.append('image', productImgs[i]);
+                    //Submit multiple images
+                    axios.post(baseUrl + 'products-imgs/', imageFormData)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                    //End Upload Images 
+                    setProductImgs('');
+                }
+            }else{
+                setErrorMsg(response.statusText);
+                setSuccessMsg('');
+            }
+        })
+        .catch(function (error){
+            console.log(error);
         });
     }
 
     useEffect(()=>{
-        fetchData(baseUrl+'/categories/');
+        fetchData(baseUrl+'categories/');
         console.log(categoryData);
     },[]);
 
@@ -134,11 +166,11 @@ export default function AddProduct() {
                                     </div>
                                     <div className="mb-3">
                                         <label for="ProductImg" className="form-label">Featured Image</label>
-                                        <input type="file" className="form-control" value={productData.image} id="ProductImg" accept="image/*" onChange={fileHandler} />
+                                        <input type="file" name='image' className="form-control" id="ProductImg" onChange={fileHandler} />
                                     </div>
                                     <div className="mb-3">
-                                        <label for="Product_File" className="form-label">Product File</label>
-                                        <input type="file" value={productData.product_file} className="form-control" id="Product_File" onChange={fileHandler}/>
+                                        <label for="Product_Imgs" className="form-label">Product Image</label>
+                                        <input type="file" multiple name='product_imgs' className="form-control" id="ProductImg" onChange={multipleFileHandler} />
                                     </div>
                                     <button type="button" onClick={submitHandler} className="btn btn-danger">Submit</button>
                                 </form>

@@ -36,6 +36,7 @@ import SchoolLogin from "./components/School/Login";
 import SchoolDashboard from "./components/School/Dashboard";
 import SchoolProducts from "./components/School/Products";
 import AddProduct from "./components/School/AddProduct";
+import UpdateProduct from "./components/School/UpdateProduct";
 import SchoolOrders from "./components/School/SchoolOrder";
 import Customer from "./components/School/Customer";
 import Report from "./components/School/Report";
@@ -79,11 +80,13 @@ function App() {
           <Route path ="/seller/register" element={<SchoolRegister/>}/>
           <Route path ="/seller/products" element={<SchoolProducts/>}/>
           <Route path ="/seller/add-product" element={<AddProduct/>}/>
+          <Route path ="/seller/update-product/:product_id" element={<UpdateProduct/>}/>
           <Route path ="/seller/orders" element={<SchoolOrders/>}/>
           <Route path ="/seller/customer" element={<Customer/>}/>
           <Route path ="/seller/report" element={<Report/>}/>
           <Route path ="/seller/change/password" element={<ChangePassword/>}/>
           <Route path ="/seller/profile" element={<Report/>}/>
+          <Route></Route>
       </Routes>
       <Footer />
       </CartContext.Provider>

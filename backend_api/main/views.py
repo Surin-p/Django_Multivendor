@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions, pagination, viewsets
-from .models import Vendor, Product, Customer,Order, OrderItem, CustomerAddress, ProductRating, ProductCategory
+from .models import Vendor, Product, Customer,Order, OrderItem, CustomerAddress, ProductRating, ProductCategory, ProductImage
 from .serializers import VendorSerializer, VendorDetailSerializer
-from .serializers import ProductListSerializer, ProductDetailSerializer, ProductRatingSerializer
+from .serializers import ProductListSerializer, ProductDetailSerializer, ProductRatingSerializer, ProductImageSerializer
 from .serializers import CustomerDetailSerializer, CustomerSerializer, CustomerAddressSerializer
 from .serializers import OrderSerializer, OrderDetailSerializer, OrderItemSerializer
 from .serializers import CategorySerializer, CategoryDetailSerializer
@@ -53,6 +53,23 @@ class ProductList(generics.ListCreateAPIView):
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
+
+###Product Image
+class ProductImgsList(generics.ListCreateAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+
+###Product Image
+class ProductImgsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+    def get_queryset(self):
+        qs=super().get_queryset()
+        product_id=self.kwargs['product_id']
+        qs=qs.filter(product_id=product_id)
+        return qs
+           
+        
 
 ##CUSTOMER
 class CustomerList(generics.ListCreateAPIView):
