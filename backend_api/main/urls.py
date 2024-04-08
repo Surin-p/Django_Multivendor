@@ -10,12 +10,13 @@ urlpatterns=[
     #VENDORS
     path('vendors/', views.VendorList.as_view()),
     path('vendor/<int:pk>/', views.VendorDetail.as_view()),
-    path('seller/login/', views.VendorLogin, name='vendor_login'),
-    path('seller/register/', views.VendorRegister, name='vendor_register'),
+    path('vendor/login/', views.VendorLogin, name='vendor_login'),
+    path('vendor/register/', views.VendorRegister, name='vendor_register'),
     #Products
     path('products/', views.ProductList.as_view()),
     path('product/<int:pk>/', views.ProductDetail.as_view()),
-
+    path('products-imgs/', views.ProductImgsList.as_view()),
+    path('products-imgs/<int:product_id>/', views.ProductImgsDetail.as_view()),
     #Customers
     path('customers/', views.CustomerList.as_view()),
     path('customer/<int:pk>/', views.CustomerDetail.as_view()),

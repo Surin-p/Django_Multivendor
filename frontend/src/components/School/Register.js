@@ -48,7 +48,7 @@ export default function SchoolRegister(props) {
         formData.append('password', registerFormData.password);
         
         //Submit Data
-        axios.post(baseUrl + 'seller/register/', formData)
+        axios.post(baseUrl + 'vendor/register/', formData)
             .then(function (response) {
                 if (response.data.bool === false) {
                     setFormError(true);
