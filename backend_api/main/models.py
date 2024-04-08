@@ -61,6 +61,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete = models.CASCADE)
     order_time = models.DateTimeField(auto_now_add=True)
     order_status = models.BooleanField(default=False)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     def __str__(self):
         return '%s' % (self.order_time)
     
@@ -73,6 +74,9 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.product.title
+    
+    class Meta:
+        verbose_name_plural = 'Order Items'
      
 #Customer Address Model
 class CustomerAddress(models.Model):

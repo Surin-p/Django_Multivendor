@@ -12,11 +12,13 @@ urlpatterns=[
     path('vendor/<int:pk>/', views.VendorDetail.as_view()),
     path('vendor/login/', views.VendorLogin, name='vendor_login'),
     path('vendor/register/', views.VendorRegister, name='vendor_register'),
-    #Products
+    path('vendor/<int:pk>/orderitems', views.VendorOrderItemList, name='vendor_order_items'),
+    #Products 
     path('products/', views.ProductList.as_view()),
     path('product/<int:pk>/', views.ProductDetail.as_view()),
     path('products-imgs/', views.ProductImgsList.as_view()),
-    path('products-imgs/<int:product_id>/', views.ProductImgsDetail.as_view()),
+    path('products-imgs/<int:product_id>/', views.ProductImgsList.as_view()),
+    path('product-img/<int:pk>/', views.ProductImgsDetail.as_view()),
     #Customers
     path('customers/', views.CustomerList.as_view()),
     path('customer/<int:pk>/', views.CustomerDetail.as_view()),

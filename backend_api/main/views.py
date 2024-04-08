@@ -10,11 +10,13 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate;
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+
 ###VENDOR
 class VendorList(generics.ListCreateAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
-
+    
+##Vendor detail
 
 class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vendor.objects.all()
@@ -25,6 +27,7 @@ class CategoryList(generics.ListCreateAPIView):
     queryset = ProductCategory.objects.all()
     serializer_class = CategorySerializer
 
+#Category Detail
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProductCategory.objects.all()
@@ -49,42 +52,41 @@ class ProductList(generics.ListCreateAPIView):
             qs = qs[:limit]
         return qs
 
-
+###Product Detail
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
 
-###Product Image
+###Product Image List
 class ProductImgsList(generics.ListCreateAPIView):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
 
-###Product Image
+###Product Image Detail
 class ProductImgsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
-    def get_queryset(self):
-        qs=super().get_queryset()
-        product_id=self.kwargs['product_id']
-        qs=qs.filter(product_id=product_id)
-        return qs
-           
-        
+      
 
-##CUSTOMER
+##CUSTOMER List 
 class CustomerList(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+
+
+##CUSTOMER Detail
 
 class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerDetailSerializer
 
-##ORDER
+##ORDER List
 class OrderList(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+
+##ORDER Detail
 class OrderDetail(generics.ListAPIView):
     #queryset = OrderItem.objects.all()
     serializer_class = OrderDetailSerializer
@@ -95,11 +97,25 @@ class OrderDetail(generics.ListAPIView):
     #     order_items = OrderItem.objects.filter(order=order)
     #     return order_items
 
-
+#ORDER Item List
 class OrderItemList(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
+#ORDER Item List
+class VendorOrderItemList(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        vendor_id = self.kwargs['pk']
+        qs = qs.filter(product_vendor_id=vendor_id)
+        return qs
+            
+           
+        
+    
 #Customer address
 class CustomerAddressViewSet(viewsets.ModelViewSet):
     #queryset = OrderItem.objects.all()

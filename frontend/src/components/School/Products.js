@@ -5,9 +5,9 @@ import SchoolSidebar from "./Sidebar"
 import { useEffect, useState } from "react";
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
-const baseUrl = 'http://127.0.0.1:8000/api/';
+
 export default function SchoolProducts() {
-    
+    const baseUrl = 'http://127.0.0.1:8000/api/';
     const [productData, setProductData] = useState([]);
     useEffect(()=>{
         fetchData(baseUrl+'products/');
@@ -21,7 +21,23 @@ export default function SchoolProducts() {
             setProductData(data.results);
         });
     }
+
     console.log(productData);
+    function showConfirm(product_id){
+        var delete_confirm = window.confirm('Are you Sure you want to delete this product?');
+        console.log(delete_confirm);
+        if(delete_confirm){
+            fetch(baseurl+'product/'+product_id,{
+                method:'DELETE'
+            })
+            .then((response) => {
+                console.log(response);
+                if(response.status=204){
+                    fetch(baseurl+'products/');
+                }
+            });    
+        }
+    }
     return (
         <section>
             <div className='container mt-4'>
@@ -57,8 +73,8 @@ export default function SchoolProducts() {
                                                 <td><Link to={`/seller/update-product/${product.id}`}>{product.title}</Link></td>
                                                 <td>Rs.{product.price}</td>
                                                 <td>
-                                                    <a href='#' className="btn btn-success ms-1">Edit</a>
-                                                    <a href='#' className="btn btn-danger ms-1">Delete</a>
+                                                    <Link to={`/seller/update-product/${product.id}`} className="btn btn-success ms-1">Edit</Link>
+                                                    <Link href={`/seller/delete-product/${product.id}`} onClick={()=>showConfirm(product.id)} className="btn btn-danger ms-1">Delete</Link>
                                                 </td>
                                             </tr>
                                             )

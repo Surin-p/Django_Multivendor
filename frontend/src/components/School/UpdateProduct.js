@@ -11,6 +11,7 @@ export default function UpdateProduct() {
     const {product_id} = useParams();
     const baseUrl = 'http://127.0.0.1:8000/api/';
     const vendor_id = localStorage.getItem('vendor_id');
+    const [isImageDeleted, setIsImageDeleted] = useState(false);
     const [isFeatureImageSelected, setIsFeatureImageSelected] = useState(false);
     const [isMultipleImageSelected, setIsMultipleImageSelected] = useState(false);
     const [categoryData, setCategoryData]=useState([]);
@@ -147,6 +148,21 @@ export default function UpdateProduct() {
         });
     }
     console.log(productData)
+
+    //delete image 
+    function deleteImage(image_id){
+        axios.delete(baseUrl+'product-img/'+image_id+'/')
+        .then(function (response){
+            //204: no content success status reposnse code 
+            //request is success and client doesnot need to navigate from current page
+            if(response.status==204){
+                window.location.reload();
+            }
+        })
+        .catch(function (error){
+            console.log(error);
+        });
+    }
     return (
         <section>
             <div className='container mt-4'>
@@ -193,13 +209,20 @@ export default function UpdateProduct() {
                                     </div>
                                     <div className="mb-3">
                                         <label for="ProductImg" className="form-label">Featured Image</label>
-                                        <input type="file" name='image' className="form-control" id="ProductImg" onChange={fileHandler} />
+                                        <input type="file" name='image' className="form-control mb-2" id="ProductImg" onChange={fileHandler} />
                                         <img src={productData.image} className='img rounded border mt-2' width="200"/>
                                     </div>
                                     <div className="mb-3">
                                         <label for="Product_Imgs" className="form-label">Product Image</label>
-                                        <input type="file" multiple name='product_imgs' className="form-control" id="ProductImg" onChange={multipleFileHandler} />
-                                        {productData.product_imgs && productData.product_imgs.map((img, val)=><img src={img.image} className='img rounded border m-2' width="200"/>)}
+                                        <input type="file" multiple name='product_imgs'  className="form-control" id="ProductImg" onChange={multipleFileHandler} />
+                                        {productData.product_imgs && productData.product_imgs.map((img, index)=>
+                                        <span className='image-box d-inline my-2 p-3'>
+                                        <i className='fa fa-trash text-danger'
+                                         style={styles.deleteBtn} 
+                                         onClick={()=>deleteImage(img.id)} 
+                                         role='button'></i>
+                                         <img src={img.image} className='my-4' width="200"/>
+                                         </span>)}
                                     </div>
                                     <button type="button" onClick={submitHandler} className="btn btn-danger">Submit</button>
                                 </form>
@@ -210,4 +233,12 @@ export default function UpdateProduct() {
             </div>
         </section>
     )
+}
+
+//style object
+const styles={
+    'deleteBtn':{
+        'position':'absolute'
+
+    }
 }
