@@ -27,7 +27,9 @@ urlpatterns=[
     #Orders
     path('orders/', views.OrderList.as_view()),
     path('order/<int:pk>', views.OrderDetail.as_view()),
+    path('order-modify/<int:pk>', views.OrderModify.as_view()),
     path('orderitems/<int:pk>', views.OrderItemList.as_view()),
+    path('update-order-status/<int:order_id>', views.update_order_status, name='update_order_staus'),
 
     #Categories
     path('categories/', views.CategoryList.as_view()),

@@ -112,10 +112,7 @@ class VendorOrderItemList(generics.ListCreateAPIView):
         vendor_id = self.kwargs['pk']
         qs = qs.filter(product_vendor_id=vendor_id)
         return qs
-            
-           
-        
-    
+                  
 #Customer address
 class CustomerAddressViewSet(viewsets.ModelViewSet):
     #queryset = OrderItem.objects.all()
@@ -280,3 +277,22 @@ def VendorLogin(request):
             'msg':'Invalid Username/Password'
         }
     return JsonResponse(msg)
+
+##ORDER Modify
+class OrderModify(generics.RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+@csrf_exempt
+def update_order_status(request, order_id):
+    if request.method == 'POST':
+        updateRes = models.Order.object.filter(id=order_id).update(order_status=True)
+        msg={
+            'bool':False,
+        }
+        if updateRes:
+            msg={
+                'bool':True,
+            }
+        return JsonResponse(msg)

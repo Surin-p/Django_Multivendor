@@ -20,7 +20,22 @@ export default function SchoolOrders() {
             setProductData(data.results);
         })
     }
-
+ 
+    function changeOrderStatus(order_id, status){
+        fetch(baseUrl+'/order-modify/'+order_id+'/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              method: "POST",
+              body: JSON.stringify({order_status:status}) //we send object in body
+        })
+        .then(function(response){
+            if(response.status==200){
+                fetchData(baseUrl+'vendor/'+vendor_id+'/orderitems');
+            }})
+        
+    }
     console.log(orderItems)
 
     return (
@@ -52,8 +67,8 @@ export default function SchoolOrders() {
 
                                                 <td>Rs. {item.product.price}</td>
                                                 <td>
-                                                {item.order.status && <span className='text-success'><i className='fa fa-check-circle'>Completed</i></span>}
-                                                {!item.order.status && <span className='text-success'><i className='fa fa-spinner'>Pending</i></span>}
+                                                {item.order.order_status && <span className='text-success'><i className='fa fa-check-circle'>Completed</i></span>}
+                                                {!item.order.order_status && <span className='text-success'><i className='fa fa-spinner'>Pending</i></span>}
                                                 </td>
                                                 
                                                 <td> 
@@ -62,9 +77,12 @@ export default function SchoolOrders() {
                                                             Change Status
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Approve</a>
-                                                            <a class="dropdown-item" href="#">Sent</a>
-                                                            <a class="dropdown-item" href="#">Completed</a>
+                                                        {!item.order.order_status &&
+                                                             <a class="dropdown-item" onClick={()=>changeOrderStatus(item.order.id, true)} href="#">Completed</a> //when clicked setting the status true 
+                                                        }
+                                                        {item.order.order_status &&
+                                                             <a class="dropdown-item" onClick={()=>changeOrderStatus(item.order.id, false)} href="#">Pending</a> //when clicked setting the status true 
+                                                        }
                                                         </div>
                                                     </div>
                                                 </td>
