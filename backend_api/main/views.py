@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate;
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.contrib.auth.hashers import make_password
 
 ###VENDOR
 class VendorList(generics.ListCreateAPIView):
@@ -91,28 +92,68 @@ class OrderDetail(generics.ListAPIView):
     #queryset = OrderItem.objects.all()
     serializer_class = OrderDetailSerializer
 
-    # def get_queryset(self):
-    #     order_id=self.kwargs['pk']
-    #     order = Order.objects.get(id=order_id)
-    #     order_items = OrderItem.objects.filter(order=order)
-    #     return order_items
+    def get_queryset(self):
+        order_id=self.kwargs['pk']
+        order = Order.objects.get(id=order_id)
+        order_items = OrderItem.objects.filter(order=order)
+        return order_items
+    
+##ORDER Detail
+class OrderDeleteMod(generics.RetrieveDestroyAPIView):
+    #queryset = OrderItem.objects.all()
+    serializer_class = OrderDetailSerializer
+
 
 #ORDER Item List
 class OrderItemList(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
-#ORDER Item List
-class VendorOrderItemList(generics.ListCreateAPIView):
+class CustomerOrderItemList(generics.ListAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        customer_id = self.kwargs['pk']
+        qs = qs.filter(order__customer__id=customer_id)
+        return qs
+    
+class VendorCustomerOrderItemList(generics.ListAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        vendor_id = self.kwargs['vendor_id']
+        customer_id = self.kwargs['customer_id']
+        qs = qs.filter(order__customer__id=customer_id, product__vendor__id=vendor_id)
+        return qs
+    
+#Vendor Order Item List
+class VendorOrderItemList(generics.ListAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
     def get_queryset(self):
         qs = super.get_queryset(self)
         vendor_id = self.kwargs['pk']
-        qs = qs.filter(product_vendor_id=vendor_id)
+        qs = qs.filter(product__vendor__id=vendor_id)
         return qs
-                  
+
+ #Vendor Customers order item connected to product and product to vendor
+class VendorCustomerList(generics.ListAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        vendor_id = self.kwargs['pk']
+        qs = qs.filter(product__vendor__id=vendor_id)
+        return qs
+    
+#VendorCustomerOrderItemList   
+             
 #Customer address
 class CustomerAddressViewSet(viewsets.ModelViewSet):
     #queryset = OrderItem.objects.all()
@@ -124,7 +165,6 @@ class CustomerAddressViewSet(viewsets.ModelViewSet):
 class ProductRatingViewSet(viewsets.ModelViewSet):
     serializer_class = ProductRatingSerializer
     queryset = ProductRating.objects.all()
-
 
 #creating post request we create csrf token
 @csrf_exempt
@@ -278,6 +318,36 @@ def VendorLogin(request):
         }
     return JsonResponse(msg)
 
+@csrf_exempt
+def vendor_change_password(request, vendor_id):
+    password = request.POST.get('password')
+    vendor = Vendor.objects.get(id=vendor_id)
+    user = vendor.user
+    user.password = make_password(password)
+    user.save()
+
+    msg={
+        'bool':True,
+        'msg': 'Passowrd has been changed'
+        }
+
+    return JsonResponse(msg)
+
+@csrf_exempt
+def customer_change_password(request, customer_id):
+    password = request.POST.get('password')
+    customer = Customer.objects.get(id=customer_id)
+    user = customer.user
+    user.password = make_password(password)
+    user.save()
+
+    msg={
+        'bool':True,
+        'msg': 'Passowrd has been changed'
+        }
+
+    return JsonResponse(msg)
+
 ##ORDER Modify
 class OrderModify(generics.RetrieveUpdateAPIView):
     queryset = Order.objects.all()
@@ -287,7 +357,7 @@ class OrderModify(generics.RetrieveUpdateAPIView):
 @csrf_exempt
 def update_order_status(request, order_id):
     if request.method == 'POST':
-        updateRes = models.Order.object.filter(id=order_id).update(order_status=True)
+        updateRes = Order.object.filter(id=order_id).update(order_status=True)
         msg={
             'bool':False,
         }
@@ -296,3 +366,46 @@ def update_order_status(request, order_id):
                 'bool':True,
             }
         return JsonResponse(msg)
+    
+@csrf_exempt
+def delete_customer_orders(request,customer_id):
+    if request.method=='DELETE':
+        #product_id = request.POST.get('product')
+        orders = Order.objects.filter(customer_id=customer_id).delete()
+        msg={
+            'bool':False
+        }
+        # if checkCompare>0:
+        #     msg={
+        #         'bool':True
+        #     }
+        if orders>0:
+            msg={
+                'bool':True
+            }
+    return JsonResponse(msg)
+
+    # customer_id=pk
+    # totalOrders=Order.objects.filter(customer_id=customer_id).count()
+    # totalCompare=Compare.objects.filter(customer_id=customer_id).count()
+    # totalAddress=CustomerAddress.objects.filter(customer_id=customer_id).count()
+
+    # msg={
+    #     'totalOrders':totalOrders,
+    #     'totalComapre':totalCompare,
+    #     'totalAddress':totalAddress,
+    # }
+    # return JsonResponse(msg)
+def vendor_dashboard(request,pk):
+    vendor_id=pk
+    totalProducts=Product.objects.filter(vendor__id=vendor_id).count()
+    totalOrders=OrderItem.objects.filter(product__vendor__id=vendor_id).count()
+    totalCustomers=OrderItem.objects.filter(product__vendor__id=vendor_id).values('order__customer').count()
+
+    msg={
+        'totalOrders':totalOrders,
+        'totalComapre':totalCompare,
+        'totalAddress':totalAddress,
+    }
+    return JsonResponse(msg)
+    

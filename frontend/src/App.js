@@ -39,6 +39,7 @@ import AddProduct from "./components/School/AddProduct";
 import UpdateProduct from "./components/School/UpdateProduct";
 import SchoolOrders from "./components/School/SchoolOrder";
 import Customer from "./components/School/Customer";
+import CustomerOrders from "./components/School/CustomerOrder";
 import Report from "./components/School/Report";
 import SchoolChangePassowrd from "./components/School/SchoolChangePassword";
 import SchoolProfile from "./components/School/SchoolProfile";
@@ -83,6 +84,7 @@ function App() {
           <Route path ="/seller/update-product/:product_id" element={<UpdateProduct/>}/>
           <Route path ="/seller/orders" element={<SchoolOrders/>}/>
           <Route path ="/seller/customer" element={<Customer/>}/>
+          <Route path ="/seller/customer/:customer_id/orderitems/" element={<CustomerOrders/>}/>
           <Route path ="/seller/report" element={<Report/>}/>
           <Route path ="/seller/change/password" element={<ChangePassword/>}/>
           <Route path ="/seller/profile" element={<Report/>}/>

@@ -2,9 +2,57 @@
 //Packages
 import { Link } from 'react-router-dom';
 import SchoolSidebar from './Sidebar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
 export default function SchoolChangePassowrd(props) {
+    const baseUrl = 'http://127.0.0.1:8000/api/';
+    const [passwordData, setPasswordData] = useState({
+        'password':'',
+        'c_password':'',
+    })
+    const [confirmError, setConfirmError] = useState(false);
+    const vendor_id = localStorage.getItem('vendor_id');
+    const inputHandler = (event) =>{
+        setPasswordData({
+            ...profileData,
+            [event.target.name]:event.target.value
+        });
+        if(passwordData.password!=passwordData.c_password){
+            setConfirmError(true);
+        }else{
+            setConfirmError(false);
+        }
+    }
+
+    function submitHandler(){
+        if(passwordData.password==passwordData.c_password){
+            setConfirmError(false);
+        }else{
+            setConfirmError(true);
+        }
+        const formData = new FormData();
+        formData.append('password', passwordData.password);
+
+        //submit
+        axios.post(baseUrl+'/vendor-change-password/'+vendor_id,formData)
+        .then(function(response){
+            console.log(response);
+        })
+        .catch(function(error){
+            console.log(error)
+        });
+
+        // //submit Data
+        // const formUserData = new FormData();
+    
+        // formUserData.append('username', profileData.username);
+        // formUserData.append('email', profileData.email);
+        // formUserData.append('address', profileData.address);
+        // formUserData.append('first_name', profileData.first_name);
+    }
+    console.log(passwordData)
     return (
         <section>
 
@@ -15,26 +63,26 @@ export default function SchoolChangePassowrd(props) {
                        <SchoolSidebar/>
                     </div>
                     <div className='col-md-9 col-12'>
+                    {
+                        confirmError && <p className='text-danger'>Password should match!!!</p>
+                    }
                         <h3 className='mb-4'>Change Password</h3>
                         <div className='card'>
                             <div className='card-body'>
-                                <form>
-                                <div className="mb-3">
-                                    <label for="oldPassword" className="form-label">Old Password</label>
-                                    <input type="password" className="form-control" id="oldPassword" />
-                                </div>
+                        
+                                
                                 <div className="mb-3">
                                     <label for="newPassword" className="form-label">New Password</label>
-                                    <input type="password" className="form-control" id="newPassword" />
+                                    <input type="password" name='password' onChange={inputHandler} value={passwordData.password} className="form-control" id="newPassword" />
                                 </div>
                                 <div className="mb-3">
                                     <label for="confirmPassword" className="form-label">Confirm New Password</label>
-                                    <input type="password" className="form-control" id="confirmPassword" />
+                                    <input type="password" name='c_password' onChange={inputHandler} value={passwordData.c_password} className="form-control" id="confirmPassword" />
                                 </div>
 
                                     
-                                    <button type="submit" className="btn btn-danger">Submit</button>
-                                </form>
+                                    <button type="button" onClick={submitHandler} className="btn btn-danger">Submit</button>
+                                
                             </div>
                         </div>
                     </div>

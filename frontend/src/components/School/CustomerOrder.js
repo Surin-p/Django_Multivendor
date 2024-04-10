@@ -2,15 +2,17 @@
 import { Link } from 'react-router-dom';
 import SchoolSidebar from './Sidebar';
 import { useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 //If you ever remove the column from other while referencing single product
 //Product columns her cola and row
-export default function SchoolOrders() {
+export default function CustomerOrders() {
     const baseUrl = 'http://127.0.0.1:8000/api/'; 
+    const {customer_id}=useParams();
     const vendor_id = localStorage.getItem('vendor_id');
     const [orderItems, setOrderItems] = useState([]);
  
     useEffect(()=>{
-        fetchData(baseUrl+'vendor/'+vendor_id+'/orderitems');
+        fetchData(`${baseUrl}vendor/${vendor_id}/customer/${customer_id}/orderitems`);
     },[]);
 
     function fetchData(baseurl){
@@ -31,8 +33,8 @@ export default function SchoolOrders() {
               body: JSON.stringify({order_status:status}) //we send object in body
         })
         .then(function(response){
-            if(response.status==200){
-                fetchData(baseUrl+'vendor/'+vendor_id+'/orderitems');
+            if(response.bool==true){
+                fetchData(`${baseUrl}vendor/${vendor_id}/customer/${customer_id}/orderitems`);
             }})
     }
 

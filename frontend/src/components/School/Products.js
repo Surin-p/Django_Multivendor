@@ -33,7 +33,7 @@ export default function SchoolProducts() {
             .then((response) => {
                 console.log(response);
                 if(response.status=204){
-                    fetch(baseurl+'products/');
+                    fetch(baseUrl+'products/');
                 }
             });    
         }
