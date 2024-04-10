@@ -65,7 +65,7 @@ class ProductRatingSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super(ProductRatingSerializer, self).__init__(*args, **kwargs)
-        #self.Meta.depth = 1
+
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:

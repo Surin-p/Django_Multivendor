@@ -28,7 +28,7 @@ import ChangePassword from "./components/Customer/ChangePassword";
 import Addresses from "./components/Customer/Addresses";
 import AddAddress from "./components/Customer/AddAddress";
 import CustomerLogout from "./components/Customer/CustomerLogout";
-
+import AddReview from "./components/Customer/AddReview";
 
 //For School Pannel
 import SchoolRegister from "./components/School/Register";
@@ -62,6 +62,7 @@ function App() {
           <Route path ="/orders/success" element={<OrderSuccess/>}/>
           <Route path ="/orders/failure" element={<OrderFailure/>}/>
           <Route path = "/confirm-order" element={<ConfirmOrder/>}/>
+          
           {/*Customer Routes*/}
           <Route path="/customer/login" element={<Login />} />
           <Route path ="/customer/logout" element={<CustomerLogout/>}/>
@@ -73,6 +74,7 @@ function App() {
           <Route path ="/change/password" element={<ChangePassword/>}/>
           <Route path ="/customer/addresses" element={<Addresses/>}/>
           <Route path ="/customer/add-address" element={<AddAddress/>}/>
+          <Route path ="/customer/add-review/:product_id" element={<AddReview/>}/>
           
           {/*School Routes*/}
           <Route path ="/seller/dashboard" element={<SchoolDashboard/>}/>

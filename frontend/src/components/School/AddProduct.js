@@ -162,7 +162,7 @@ export default function AddProduct() {
                                     </div>
                                     <div className="mb-3">
                                         <label for="tags" className="form-label">Tags</label>
-                                        <textarea className="form-control" name='tags' value={productData.tags} rows="8" id="Tags" onChange={inputHandler} ></textarea>
+                                        
                                     </div>
                                     <div className="mb-3">
                                         <label for="ProductImg" className="form-label">Featured Image</label>
