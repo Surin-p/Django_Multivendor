@@ -66,6 +66,11 @@ class ProductRatingSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(ProductRatingSerializer, self).__init__(*args, **kwargs)
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['customer'] = CustomerSerializer(instance.customer).data
+        response['product'] = ProductDetailSerializer(instance.product).data
+        return response
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:

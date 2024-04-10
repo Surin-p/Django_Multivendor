@@ -4,14 +4,17 @@ import SingleProduct from './Customer/SingleProduct';
 import SingleCategory from "./Customer/SingleCategory";
 import lotus from "../lotus.jpg";
 import {useState, useEffect} from 'react';
+import Testomonial from "./Customer/testomonial";
 
 export default function Home() {
   const baseUrl = 'http://127.0.0.1:8000/api';
   const [products, setProducts] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     fetchData(baseUrl+'/products/?fetch_limit=4');
+    fetchTestimonalData(baseUrl+'/productrating');
     fetchCategoryData(baseUrl+'/categories/?fetch_limit=4');
   }, []);
 
@@ -30,7 +33,14 @@ export default function Home() {
         setCategories(data.results);
       });
   }
-  
+
+  function fetchTestimonalData(baseurl){
+    fetch(baseurl)
+    .then((response)=>response.json())
+    .then((data)=>{
+        setReviewList(data.results);
+    });
+}
   return (
     <main className='mt-4'>
     <section class="header-section">
@@ -107,53 +117,15 @@ export default function Home() {
         {/*Rating and Reviews*/}
         <div id="carouselExampleIndicators" className="carousel slide my-4 border bg-dark text-white p-5" data-bs-ride="carousel">
           <div className="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            
+            {
+              reviewList.map((item, index)=><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to= className="active" aria-current="true" aria-label={index}></button>)
+            }
           </div>
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>A well-known quote, contained in a blockquote element.</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <cite title="Source Title">Customer Name</cite>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="carousel-item">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>A well-known quote, contained in a blockquote element.</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <cite title="Source Title">Customer Name</cite>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="carousel-item">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>A well-known quote, contained in a blockquote element.</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <i className='fa fa-star text-warning'></i>
-                  <cite title="Source Title">Customer Name</cite>
-                </figcaption>
-              </figure>
-            </div>
+            {
+              reviewList.map((item, index)=><Testomonial index={index} item={item} />)
+            }
           </div>
           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
