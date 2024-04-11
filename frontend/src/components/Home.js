@@ -5,10 +5,12 @@ import SingleCategory from "./Customer/SingleCategory";
 import lotus from "../lotus.jpg";
 import {useState, useEffect} from 'react';
 import Testomonial from "./Customer/testomonial";
+import SingleSeller from "./School/SingleSeller";
 
 export default function Home() {
   const baseUrl = 'http://127.0.0.1:8000/api';
   const [products, setProducts] = useState([]);
+  const [sellerList, setSellerList] = useState([]);
   const [reviewList, setReviewList] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -16,6 +18,7 @@ export default function Home() {
     fetchData(baseUrl+'/products/?fetch_limit=4');
     fetchTestimonalData(baseUrl+'/productrating');
     fetchCategoryData(baseUrl+'/categories/?fetch_limit=4');
+    fetchSellerData(baseUrl+'/vendors/?fetch_limit=4');
   }, []);
 
   function fetchData(baseurl) {
@@ -33,6 +36,15 @@ export default function Home() {
         setCategories(data.results);
       });
   }
+
+  function fetchSellerData(baseurl) {
+    fetch(baseurl)
+      .then((response) => response.json())
+      .then((data) => {
+        setSellerList(data.results);
+      });
+  }
+
 
   function fetchTestimonalData(baseurl){
     fetch(baseurl)
@@ -78,39 +90,10 @@ export default function Home() {
         </div>
         {/*End Latest Product*/}
         {/* Popular School*/}
-        <h3 className='mb-4'>Popular School<a href="#" className='float-end btn btn-sm btn-danger'>View All School<i className='fa-solid fa-arrow-right-long'></i></a></h3>
-        <div className='row'>
-          {/*School Box*/}
-          <div className='col-12 col-md-3 mb-4'>
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title text-danger">School title</h4>
-              </div>
-              <div className='card-footer'>
-                Categories: <a href='#'>Reference</a>, <a href='#'>Primary</a>, <a href='#'>Secondary</a>
-                <br />
-                Book Purchased: 2233
-              </div>
-            </div>
-          </div>
-          {/* End School Box*/}
-          {/*School Box*/}
-          <div className='col-12 col-md-3 mb-4'>
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title text-danger">School title</h4>
-              </div>
-              <div className='card-footer'>
-                Categories: <a href='#'>Reference</a>, <a href='#'>Primary</a>, <a href='#'>Secondary</a>
-                <br />
-                Book Purchased: 2233
-              </div>
-            </div>
-          </div>
-          {/* End School Box*/}
-
+        
+        <h3 className='mb-4 home-heading3'>SCHOOLS<Link to="/sellers" className='float-end btn btn-sm btn-danger'>View All Schools<i className='fa-solid fa-arrow-right-long'></i></Link></h3>
+        <div className="row mb-4">
+            {sellerList.map((seller) => (<SingleSeller seller={seller } />))}
         </div>
         {/*End Latest School*/}
 
@@ -119,7 +102,7 @@ export default function Home() {
           <div className="carousel-indicators">
             
             {
-              reviewList.map((item, index)=><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to= className="active" aria-current="true" aria-label={index}></button>)
+              reviewList.map((item, index)=><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to='true' className="active" aria-current="true" aria-label={index}></button>)
             }
           </div>
           <div className="carousel-inner">

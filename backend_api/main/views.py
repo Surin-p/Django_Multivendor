@@ -16,13 +16,32 @@ from django.contrib.auth.hashers import make_password
 class VendorList(generics.ListCreateAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
-    
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if 'fetch_limit' in self.request.GET:
+            limit = int(self.request.GET['fetch_limit'])
+            qs = qs[:limit]
+        return qs
 ##Vendor detail
 
 class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorDetailSerializer
 
+#Vendor Product
+class SellerProductList(viewsets.ModelViewSet):
+    #queryset = OrderItem.objects.all()
+    # A viewset for viewing and editing user instances. get or post instead of list or create
+    serializer_class = ProductListSerializer
+    queryset = Product.objects.all()
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        vendor_id = self.kwargs['seller_id']
+        qs = qs.filter(vendir__id=vendor_id).order_by('id')
+        return qs
+    
 ###Category
 class CategoryList(generics.ListCreateAPIView):
     queryset = ProductCategory.objects.all()
@@ -43,11 +62,6 @@ class ProductList(generics.ListCreateAPIView):
     # # Sort out result setParams
     def get_queryset(self):
         qs = super().get_queryset()
-        if 'category' in self.request.GET:
-            category_id = self.request.GET['category']
-            category = ProductCategory.objects.get(id=category_id)
-            qs = qs.filter(category=category)
-            qs = super().get_queryset()
         if 'fetch_limit' in self.request.GET:
             limit = int(self.request.GET['fetch_limit'])
             qs = qs[:limit]
@@ -160,6 +174,13 @@ class CustomerAddressViewSet(viewsets.ModelViewSet):
     # A viewset for viewing and editing user instances. get or post instead of list or create
     serializer_class = CustomerAddressSerializer
     queryset = CustomerAddress.objects.all()
+
+    def get_queryset(self):
+        qs = super.get_queryset(self)
+        customer_id = self.kwargs['pk']
+        qs = qs.filter(customer__id=customer_id).order_by('id')
+        return qs
+    
 
 #Product Rating
 class ProductRatingViewSet(viewsets.ModelViewSet):

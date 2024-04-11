@@ -24,7 +24,7 @@ export default function Testomonial(props){
                 </blockquote>
                 <figcaption className="blockquote-footer">
                    <span>
-                   {
+                    {
                         _stars
                     }
                     </span> 

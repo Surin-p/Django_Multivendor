@@ -10,6 +10,7 @@ urlpatterns=[
     #VENDORS
     path('vendors/', views.VendorList.as_view()),
     path('vendor/<int:pk>/', views.VendorDetail.as_view()),
+    path('vendor-products/<int:vendor_id>', views.SellerProductList.as_view()),
     path('vendor/<int:pk>/dashboard/', views.VendorDetail.as_view()),
     path('vendor-change-password/<int:vendor_id>/', views.vendor_change_password),
     path('vendor/login/', views.VendorLogin, name='vendor_login'),

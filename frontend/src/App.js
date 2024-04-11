@@ -16,7 +16,7 @@ import Checkout from "./components/Checkout";
 import OrderSuccess from "./components/OrderSuccess";
 import OrderFailure from "./components/OrderFailure";
 import ConfirmOrder from "./components/ConfirmOrder";
-
+import AllSeller from "./components/AllSeller";
 //For Customer Pannel
 import Register from "./components/Customer/Register";
 import Login from "./components/Customer/Login";
@@ -46,6 +46,7 @@ import SchoolProfile from "./components/School/SchoolProfile";
 import SchoolLogout from "./components/School/Logout";
 import { CartContext } from "./Context";
 import { useState } from "react";
+import SellerDetail from "./components/School/SellerDetail";
 const checkCart = localStorage.getItem('cartDate');
 function App() {
   const [cartData, setCartData] = useState(JSON.parse(checkCart));
@@ -62,7 +63,8 @@ function App() {
           <Route path ="/orders/success" element={<OrderSuccess/>}/>
           <Route path ="/orders/failure" element={<OrderFailure/>}/>
           <Route path = "/confirm-order" element={<ConfirmOrder/>}/>
-          
+          <Route path="/sellers" element={<AllSeller />} />
+
           {/*Customer Routes*/}
           <Route path="/customer/login" element={<Login />} />
           <Route path ="/customer/logout" element={<CustomerLogout/>}/>
@@ -78,6 +80,7 @@ function App() {
           
           {/*School Routes*/}
           <Route path ="/seller/dashboard" element={<SchoolDashboard/>}/>
+          <Route path = "/seller/:product_slug/:product_id" element={<SellerDetail/>}/>
           <Route path ="/seller/login" element={<SchoolLogin/>}/>
           <Route path ="/seller/logout" element={<SchoolLogout/>}/>
           <Route path ="/seller/register" element={<SchoolRegister/>}/>

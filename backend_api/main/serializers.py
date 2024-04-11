@@ -11,7 +11,10 @@ class VendorSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super(VendorSerializer, self).__init__(*args, **kwargs)
-        #self.Meta.depth = 1
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['user'] = UserSerializer(instance.user).data
+        return response
         
 class VendorDetailSerializer(serializers.ModelSerializer):
     class Meta:
